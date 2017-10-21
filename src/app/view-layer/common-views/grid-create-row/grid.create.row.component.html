@@ -1,0 +1,36 @@
+<!-- ngrx smart-container-->
+  <form fxLayout="row" class="grid-create-row" #f="ngForm" (ngSubmit)="publishGarmentAdd(f)" novalidate>
+     <div fxLayout="column" fxFlex="10" >
+         <button type="button"  md-icon-button  class='exit-add'(click)="exitAddRow()">
+            <i class="material-icons">clear</i>
+         </button>
+     </div>
+     <div class="garment-name" fxLayout="column" fxFlex="30">
+         <input id="garmentName"  ngModel placeholder="Garment Name"  name="garmentName">
+     </div>
+     <div class="garment-type" fxLayout="column" fxFlex="15">
+                 <div class="garment-toolbar-type" fxLayout="column" fxFlex="15">
+                    <button md-button type="button"  [mdMenuTriggerFor]="type" class="type-btn-trigger">
+                         {{ updatedType}}
+                    </button>
+                    <md-menu #type="mdMenu">
+                      <button md-menu-item type="button" (click)="updateGarmentType('Physical')">Physical</button>
+                      <button md-menu-item type="button" (click)="updateGarmentType('Digital')">Digital</button>
+                      <button md-menu-item type="button" (click)="updateGarmentType('Service')">Service</button>
+                    </md-menu>
+                 </div>
+     </div>
+     <div class="garment-price" fxLayout="column" fxFlex="10">
+         <input id="garmentPrice" ngModel  placeholder="price" name="garmentPrice" class="price-input">
+     </div>
+     <div class="garment-inventory" fxLayout="column" fxFlex="10">
+         <input id="garmentInventory" ngModel  placeholder="stock" name="garmentInventory">
+     </div>
+
+     <div fxLayout="column" fxFlex="5">
+                <button md-icon-button type="submit"
+                       class="save-button">
+                        <i class="material-icons save-icon" aria-label="save changes" >save</i>
+                </button>
+     </div>
+  </form>

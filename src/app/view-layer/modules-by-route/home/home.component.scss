@@ -1,0 +1,23 @@
+@import '../../../../scss/vendor';
+
+:host {
+    display:flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-layout{
+    width:850px;
+    min-height:900px;
+    border-style:solid;
+    border-width:1px;
+    border-color:$steel-white;
+    padding:20px 40px;
+    color:lighten($border-reg-color, 20%)
+}
+
+/*
+    do media query for for phone tablet
+
+*/
