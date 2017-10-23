@@ -43,29 +43,29 @@ export class PaginatorToolbarComponent implements OnInit {
 
     ngOnInit() {
 
-      this.portalState$ = this.brokerRef.storeObs.brokerPortalState.subscribe( (prtlState)=>{
-              this.viewablePerPage = prtlState.viewablePerPage;
-              this.currentPage = prtlState.currentPage;
-      });
-
-      this.currentPropertyCollection$= this.brokerRef.storeObs.brokerCurrentGarmentCollection.subscribe( (propertyCollection)=>{
-              if(propertyCollection && propertyCollection.garments && propertyCollection.property.length>0){
-                  this.totalNumberProducts = propertyCollection.garments.length;
-                  this.totalNumberOfPages = Math.ceil(propertyCollection.garments.length/this.viewablePerPage);
-                  this.pageList = Array.from(Array(this.totalNumberOfPages).keys());
-                  if(this.totalNumberProducts<=5){
-                     this.disabled5 = true;
-                  }else if(this.totalNumberProducts>=5 && this.totalNumberProducts <=10){
-                       this.disabled5 = false;
-                       this.disabled10 = false;
-                  }else{
-                       this.disabled5 = false;
-                       this.disabled10 = false;
-                       this.disabled15 = false;
-                  }
-                  this.onLastPage =(this.currentPage === this.totalNumberOfPages)?true:false;
-              }
-      });
+      // this.portalState$ = this.brokerRef.storeObs.brokerPortalState.subscribe( (prtlState)=>{
+      //         this.viewablePerPage = prtlState.viewablePerPage;
+      //         this.currentPage = prtlState.currentPage;
+      // });
+      //
+      // this.currentPropertyCollection$= this.brokerRef.storeObs.brokerCurrentGarmentCollection.subscribe( (propertyCollection)=>{
+      //         if(propertyCollection && propertyCollection.garments && propertyCollection.property.length>0){
+      //             this.totalNumberProducts = propertyCollection.garments.length;
+      //             this.totalNumberOfPages = Math.ceil(propertyCollection.garments.length/this.viewablePerPage);
+      //             this.pageList = Array.from(Array(this.totalNumberOfPages).keys());
+      //             if(this.totalNumberProducts<=5){
+      //                this.disabled5 = true;
+      //             }else if(this.totalNumberProducts>=5 && this.totalNumberProducts <=10){
+      //                  this.disabled5 = false;
+      //                  this.disabled10 = false;
+      //             }else{
+      //                  this.disabled5 = false;
+      //                  this.disabled10 = false;
+      //                  this.disabled15 = false;
+      //             }
+      //             this.onLastPage =(this.currentPage === this.totalNumberOfPages)?true:false;
+      //         }
+      // });
     }
 
     setViewableCount(viewCount){

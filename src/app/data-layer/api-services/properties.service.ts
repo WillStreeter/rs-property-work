@@ -21,12 +21,13 @@ export class PropertiesService {
       specificErrorType: SpecificErrorType,
       responseObject: 'properties',
       successActionType: SuccessType,
-      uri: `${this.initialPropertyUrl}`
+      uri: `${this.propertiesUrl}`
     };
-    return this.httpWrapperService.get(getParams).map( (response) => {
-        console.log('PropertiesService =response = ', response)
-        return (this.checkForClientDev(response));
-    });
+    // return this.httpWrapperService.get(getParams).map( (response) => {
+    //     console.log('PropertiesService =response = ', response)
+    //     return (this.checkForClientDev(response));
+    // });
+      return this.httpWrapperService.get(getParams).map( (response)=>(this.checkForClientDev(response)));
   }
 
   getProperty(payload: {
@@ -106,6 +107,7 @@ export class PropertiesService {
 
   private checkForClientDev(response:any){
    // because I am using api in memory for a gh page I am commenting this out
+      console.log('checkForClientDev response = ',response)
      if(environment.production ) {
         return response;
         //return Object.assign(response,{payload: <Property[]> response.payload['data'] } );

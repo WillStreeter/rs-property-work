@@ -5,11 +5,11 @@
           <md-checkbox [checked]="isChecked" [disabled]="rowUpdateState"
                (change)="turnPublishingOn(property.id)"></md-checkbox>
      </div>
-     <div class="property-address" fxLayout="column" fxFlex="40">
+     <div class="property-address" fxLayout="column" fxFlex="60">
          <input id="propertyAddress"  [className]="liveInput_Class"
-                 [(ngModel)]="property.address" [readonly]="isReadOnly"  placeholder=""  name="propertyAddress">
+                 [(ngModel)]="property.addressCombined" [readonly]="isReadOnly"  placeholder=""  name="propertyAddress">
      </div>
-     <div class="property-year-built" fxLayout="column" fxFlex="15">
+     <div class="property-year-built" fxLayout="column" fxFlex="10">
          <input id="propertyYearBuilt"  [className]="liveInput_Class"
                  [(ngModel)]="property.yearBuilt" [readonly]="isReadOnly"  placeholder=""  name="propertyYearBuilt">
      </div>
@@ -23,7 +23,7 @@
           [(ngModel)]="formattedMonthlyRent"
           [readonly]="isReadOnly"  placeholder="" name="propertyMonthlyRent">
      </div>
-     <div class="property-gross-yield" fxLayout="column" fxFlex="15">
+     <div class="property-gross-yield" fxLayout="column" fxFlex="10">
          <input id="propertyGrossYield"  [className]="liveInput_Class"
           [(ngModel)]="formattedGrossYield"
           [readonly]="isReadOnly"  placeholder="" name="propertyGrossYield">

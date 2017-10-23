@@ -24,7 +24,7 @@ export class BrokerGridStore {
        return  Object.assign({
                    brokerLabel: this.brokerLabel,
                    storeObs: {
-                        brokerPoperties: this.store.select(fromRoot.getCurrentPropertiesCollection),
+                        brokerProperties: this.store.select(fromRoot.getCurrentCollectionProperties),
                         brokerPortalState: this.store.select(fromRoot.getPortalState),
                     },
                    storeDsp: {

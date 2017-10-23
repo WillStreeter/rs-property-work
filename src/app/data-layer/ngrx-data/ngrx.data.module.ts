@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { HttpWrapperService } from '../api-services/http.wrapper.service';
+import { DataStructureServices } from '../../business-layer/helpers/data.structures.service';
 import { PropertiesService } from '../api-services/properties.service';
 
 /*
@@ -39,6 +40,7 @@ import { PortalEffects } from './effects/portal.effects';
     exports: [],
     providers: [
                  HttpWrapperService,
+                 DataStructureServices,
                  PropertiesService  ]
 })
 export class NGRxDataModule {
@@ -52,6 +54,7 @@ export class NGRxDataModule {
     return {
       ngModule: NGRxDataModule,
       providers: [ HttpWrapperService,
+                   DataStructureServices,
                    PropertiesService]
     }
   }

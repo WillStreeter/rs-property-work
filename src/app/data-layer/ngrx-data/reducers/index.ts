@@ -98,7 +98,7 @@ export const getPropertiesEntities  = createSelector(getPropertiesState, fromPro
 
 export const getCurrentPropertiesCollection  = createSelector(getPropertiesState, fromProperties.getCurrentPropertiesCollection);
 
-
+export const getCurrentCollectionProperties = createSelector(getPropertiesState, fromProperties.getCurrentPropertiesCollectionProperties);
 
 
 

@@ -2,6 +2,7 @@ import {createSelector, createFeatureSelector} from '@ngrx/store';
 import {PropertyModel,
          PropertyAddModel,
          PropertyCollectionModel} from '../../../../business-layer/models';
+import { DataStructureServices }  from '../../../../business-layer/helpers/data.structures.service';
 import * as propertiesActions from '../../actions/properties.actions';
 import * as PropertyActionTypes from '../../../../business-layer/shared-types/actions/properties.action.types';
 
@@ -19,13 +20,15 @@ export const initialState: State = {
   currentCollectionId: ''
 };
 
+const dataStructureServices = new DataStructureServices();
+
 export function reducer(state = initialState, action: propertiesActions.Actions): State {
   switch (action.type) {
       case PropertyActionTypes.FETCH_PROPERTIES_COLLECTION_SUCCESS:{
           if(action.payload) {
               let  propertiesCollection: PropertyCollectionModel = <PropertyCollectionModel>{};
               propertiesCollection.id = '' + state.ids.length + Math.floor(Math.random() * (100 - 1)) + 1,
-              propertiesCollection.properties = action.payload;
+              propertiesCollection.properties = dataStructureServices.createPropertiesModels(action.payload);
               if (state.ids.indexOf(propertiesCollection.id) > -1) {
                 return state;
               }
@@ -114,6 +117,11 @@ export const getCurrentSubSet = (state: State) => state.currentSubSet;
 
 export const getCurrentPropertiesCollection  = createSelector(getEntities, getCurrentCollectionId, (entities, currentCollectionId) => {
   return entities[currentCollectionId];
+});
+
+export const getCurrentPropertiesCollectionProperties  = createSelector(getEntities, getCurrentCollectionId, (entities, currentCollectionId) => {
+    let properties = currentCollectionId && entities &&  entities[currentCollectionId] ? entities[currentCollectionId].properties : null;
+    return properties? properties: [];
 });
 
 

@@ -16,6 +16,7 @@ import { BrokerList } from '../../../business-layer/brokerage/ngrx-stubs/brokerl
 })
 export class PropertiesGridComponent implements OnInit {
     currentProperties: Observable<PropertyModel[]>;
+    currentPropertiesStub: Subscription
     currentPortalStateSub: Subscription;
     currentPortalState: PortalModel;
     revealCreateRow: boolean = false;
@@ -29,7 +30,7 @@ export class PropertiesGridComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.currentProperties = this.brokerRef.storeObs.brokerPropertySubset;
+        this.currentProperties = this.brokerRef.storeObs.brokerProperties;
 
        this.currentPortalStateSub = this.brokerRef.storeObs.brokerPortalState.subscribe(value => {
             this.currentPortalState = <PortalModel>(value);

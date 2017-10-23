@@ -34,7 +34,8 @@ export class HttpWrapperService {
 
   public get(params: HttpParams) {
     let {apiUrl, options} = this.configRequest(params.uri);
-    return this.http.get('http://dev1-sample.azurewebsites.net/properties.json', options)
+    //return this.http.get('http://dev1-sample.azurewebsites.net/properties.json', options)
+    return this.http.get(apiUrl, options)
       .map(
       data => ({
         type: params.successActionType,

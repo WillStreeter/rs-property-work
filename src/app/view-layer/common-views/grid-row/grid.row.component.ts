@@ -29,18 +29,13 @@ export class GridRowComponent  implements OnChanges{
        if(changes['property']){
                const listPriceConversion= parseFloat(changes['property'].currentValue.listPrice).toFixed(2);
                const monthlyRentConversion= parseFloat(changes['property'].currentValue.monthlyRent).toFixed(2);
-               const grossYieldConversion= parseFloat(changes['property'].currentValue.grossYield).toFixed(2);
+               const grossYieldConversion=  changes['property'].currentValue.grossYield > 0 ?
+                                            parseFloat(changes['property'].currentValue.grossYield).toFixed(4):
+                                            0;
                this.formattedListPrice =  '$'+ listPriceConversion;
                this.formattedMonthlyRent =  '$'+ monthlyRentConversion;
-               this.formattedGrossYield =  '$'+ grossYieldConversion;
-               this.originalProperty = <PropertyModel>{
-                                                          id: changes['property'].currentValue.id,
-                                                          address:changes['property'].currentValue.address,
-                                                          yearBuilt: changes['property'].currentValue.yearBuilt,
-                                                          listPrice:changes['property'].currentValue.listPrice,
-                                                          monthlyRent:changes['property'].currentValue.monthlyRent,
-                                                          grossYield:changes['property'].currentValue.grossYield
-                                                    };
+               this.formattedGrossYield =  '% '+ grossYieldConversion;
+               this.originalProperty = <PropertyModel>(changes['property'].currentValue);
        }
     }
 
@@ -70,16 +65,24 @@ export class GridRowComponent  implements OnChanges{
         this.revealPublish_Class='un-revealed';
         this.formattedListPrice = '$'+(f.value.listPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
         this.formattedMonthlyRent = '$'+(f.value.monthlyRent).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
-        this.formattedGrossYield = '$'+(f.value.grossYield).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
+        this.formattedGrossYield = '%'+(f.value.grossYield).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
         const listPriceConversion= parseFloat((f.value.listPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,''));
         const monthlyRentConversion= parseFloat((f.value.monthlyRent).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,''));
         let updateProperty:PropertyModel = <PropertyModel>{
-                                                      id:this.property.id,
-                                                      address:f.value.address,
-                                                      yearBuilt: f.value.yearBuilt,
-                                                      listPrice: parseFloat(listPriceConversion.toFixed(2)),
-                                                      monthlyRent: parseFloat(monthlyRentConversion.toFixed(2)),
-                                                      grossYield:parseInt(f.value.grossYield)
+                                                        id:this.property.id,
+                                                        address1:  f.value.address1,
+                                                        city: '',
+                                                        country:  '',
+                                                        county:  '',
+                                                        district:  '',
+                                                        state:  '',
+                                                        zip:  '',
+                                                        zipPlus4:  '',
+                                                        addressCombined: '',
+                                                        yearBuilt: f.value.yearBuilt,
+                                                        listPrice: parseFloat(listPriceConversion.toFixed(2)),
+                                                        monthlyRent: parseFloat(monthlyRentConversion.toFixed(2)),
+                                                        grossYield: parseInt(f.value.grossYield)
                                                   };
         this.updatePropertyModel.emit(updateProperty)
 
