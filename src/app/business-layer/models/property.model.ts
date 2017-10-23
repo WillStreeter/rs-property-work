@@ -1,8 +1,8 @@
 export interface PropertyModel {
    id:number;
-   name:string;
-   type:string;
-   price:number;
-   inventory:number;
-   thumbnail:string;
+   address:string;
+   yearBuilt:number;
+   listPrice:number;
+   monthlyRent:number;
+   grossYield:number;
 }

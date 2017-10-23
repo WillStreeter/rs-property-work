@@ -1,9 +1,7 @@
 export interface PortalModel {
-    garmentAddLock:boolean;
+    propertyAddLock:boolean;
     viewablePerPage:number;
-    revealAddGarmentRow:boolean,
+    revealAddPropertyRow:boolean,
     currentPage:number;
-    totalPages:number;
-    sortDirection:string;
-    sortBase:string;
+    totalPages:number
 }

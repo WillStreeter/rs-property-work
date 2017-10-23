@@ -13,11 +13,11 @@ export class BrokerPublisher extends AbstractBrokerTrader {
         }
 
         // This overrides the empty NotifyObservers() in the base class.
-        public NotifyBrokerActionConsumers(brokerAction:BrokerAction) {
+        public NotifyBrokerActionConsumers(brokerAction: BrokerAction) {
             this._consumers[0].ReceiveBrokerAction(brokerAction);
         }
 
-        public NotifyBrokerSelectorConsumer(brokerRequest:string):BrokerResponse {
+        public NotifyBrokerSelectorConsumer(brokerRequest: string ): BrokerResponse {
             return this._consumers[0].ReceivedBrokerSelectorRequest(brokerRequest);
         }
 

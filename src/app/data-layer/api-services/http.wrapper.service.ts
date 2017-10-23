@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Config } from '../../shared-utils/app-env/env.config';
+import { environment } from '../../../environments/environment';
 import { HttpParams } from './interfaces/httpParams.model';
 
 @Injectable()
@@ -12,85 +12,88 @@ export class HttpWrapperService {
    This keeps the api-services DRY, easier to test, and scalable.
    */
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
 
   public delete(params: HttpParams) {
     let {apiUrl, options} = this.configRequest(params.uri);
-
-    return this.http.delete(apiUrl, options)
-        .map(res => ({
-          type: params.successActionType,
-          payload: res.json()[params.responseObject]
-        }))
-        .catch(res => Observable.of({
-          type: params.errorActionType,
-          payload: {
-            action_type: params.specificErrorType,
-            message: res.json().error
-          }
-        }));
+    return this.http.get(apiUrl, options)
+      .map(data =>  ({
+        type: params.successActionType,
+        payload: data
+      }),
+      err => (data => Observable.of({
+        type: params.errorActionType,
+        payload: {
+          action_type: params.specificErrorType,
+          message: data.error
+        }
+      })));
   }
+
 
   public get(params: HttpParams) {
     let {apiUrl, options} = this.configRequest(params.uri);
     return this.http.get('http://dev1-sample.azurewebsites.net/properties.json', options)
-        .map(res =>({
-          type: params.successActionType,
-          payload: res.json()
-        }))
-        .catch(res => Observable.of({
-          type: params.errorActionType,
-          payload: {
-            action_type: params.specificErrorType,
-            message: res.json()
-          }
-        }));
+      .map(
+      data => ({
+        type: params.successActionType,
+        payload: data
+      }),
+      err => (data => Observable.of({
+        type: params.errorActionType,
+        payload: {
+          action_type: params.specificErrorType,
+          message: data.error
+        }
+      })));
   }
 
   public post(params: HttpParams) {
 
     let {apiUrl, options} = this.configRequest(params.uri);
-    return this.http.post(apiUrl, params.payload, options)
-        .map(res => ({
-          type: params.successActionType,
-          payload: res.json()[params.responseObject]
-        }))
-        .catch(res => Observable.of({
-          type: params.errorActionType,
-          payload: {
-            action_type: params.specificErrorType,
-            message: res.json().error
-          }
-        }));
+    return this.http.post<Object>(apiUrl, params.payload, options)
+      .map(
+          data =>({
+            type: params.successActionType,
+            payload: data
+          }),
+          err => (data => Observable.of({
+            type: params.errorActionType,
+            payload: {
+              action_type: params.specificErrorType,
+              message: data.error
+            }
+          }))
+      );
   }
 
   public put(params: HttpParams) {
     let {apiUrl, options} = this.configRequest(params.uri);
-
     return this.http.put(apiUrl, params.payload, options)
-        .map(res => ({
-          type: params.successActionType,
-          payload: res.json()[params.responseObject]
-        }))
-        .catch(res => Observable.of({
-          type: params.errorActionType,
-          payload: {
-            action_type: params.specificErrorType,
-            message: res.json().error
-          }
-        }));
+      .map(
+          data =>({
+            type: params.successActionType,
+            payload: data
+          }),
+          err => (data => Observable.of({
+            type: params.errorActionType,
+            payload: {
+              action_type: params.specificErrorType,
+              message: data.error
+            }
+          }))
+      );
   }
 
 
+  private configRequest(uri: string): {apiUrl: string, options:any} {
+    console.log('HttpWrapperService -- configRequest uri=', uri)
+    let apiUrl = environment.production === true ?`${environment.HOST}/${uri}`:`${environment.HOST}/${uri}`;
 
-  private configRequest(uri: string): {apiUrl: string, options: RequestOptions} {
-    let apiUrl = `${Config.HOST}/${Config.API}/${uri}`;
-
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let options = { headers: headers };
 
     return {apiUrl, options};
   }
-
 }

@@ -16,16 +16,16 @@ import { MockNGRxDataModule } from '../data-layer/ngrx-data/mock.ngrx.data.modul
 import { NGRxBrokerRegistrationService } from '../business-layer/brokerage/registries/ngrx.broker.registration.service';
 
 //business layer ngrx pubsub-broker brokerage
-import { BrokerageModule }   from '../business-layer/brokerage/brokerage.module';
+import { BrokerageModule } from '../business-layer/brokerage/brokerage.module';
 // handle request from viewlayer to the store by way of a brokerage
-import { PubSubBrokerModule }   from '../business-layer/pubsub-broker/pubsub.broker.module';
+import { PubSubBrokerModule } from '../business-layer/pubsub-broker/pubsub.broker.module';
 
 
 /*
   Page views
  */
-import { HomeModule }  from '../view-layer/modules-by-route/home/home.module';
-import { NotfoundPageModule }  from '../view-layer/modules-by-route/notfound/notfound.page.module';
+import { HomeModule } from '../view-layer/modules-by-route/home/home.module';
+import { NotfoundPageModule } from '../view-layer/modules-by-route/notfound/notfound.page.module';
 
 
 
@@ -75,5 +75,5 @@ import { BaseRequestOptions, Http } from '@angular/http';
 })
 
 export class AppStageModule {
-    constructor(private ngrxBRS:NGRxBrokerRegistrationService) { }
+    constructor(private ngrxBRS: NGRxBrokerRegistrationService ) { }
 }

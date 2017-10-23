@@ -1,6 +1,6 @@
 import { Component,Input, Output, EventEmitter, OnChanges, SimpleChanges, } from '@angular/core';
 import { NgForm, FormsModule } from '@angular/forms';
-import { GarmentModel } from '../../../business-layer/models';
+import { PropertyModel } from '../../../business-layer/models';
 
 
 
@@ -11,35 +11,40 @@ import { GarmentModel } from '../../../business-layer/models';
     styleUrls: ['grid.row.component.scss']
 })
 export class GridRowComponent  implements OnChanges{
-    @Input()  garment:GarmentModel;
-    @Input()  rowUpdateState:boolean;
-    @Output() updateGarmentModel = new EventEmitter<GarmentModel>();
+    @Input()  property: PropertyModel;
+    @Input()  rowUpdateState: boolean;
+    @Output() updatePropertyModel = new EventEmitter<PropertyModel>();
     @Output() addRowState = new EventEmitter<boolean>();
     isChecked:boolean = false;
     isReadOnly:boolean = true;
     liveInput_Class='noStyle';
     revealPublish_Class='un-revealed';
     updatedType:string ='';
-    originalGarment:GarmentModel;
-    formattedAmount: string = '';
+    originalProperty:PropertyModel;
+    formattedListPrice: string = '';
+    formattedMonthlyRent: string = '';
+    formattedGrossYield: string = '';
 
      ngOnChanges(changes: SimpleChanges) {
-       if(changes['garment']){
-               const priceConversion= parseFloat(changes['garment'].currentValue.price).toFixed(2);
-               this.formattedAmount =  '$'+ priceConversion;
-               this.updatedType =  changes['garment'].currentValue.type;
-               this.originalGarment = <GarmentModel>{
-                                                          id: changes['garment'].currentValue.id,
-                                                          name:changes['garment'].currentValue.name,
-                                                          type: changes['garment'].currentValue.type,
-                                                          price:changes['garment'].currentValue.price,
-                                                          inventory:changes['garment'].currentValue.inventory,
-                                                          thumbnail:changes['garment'].currentValue.thumbnail
+       if(changes['property']){
+               const listPriceConversion= parseFloat(changes['property'].currentValue.listPrice).toFixed(2);
+               const monthlyRentConversion= parseFloat(changes['property'].currentValue.monthlyRent).toFixed(2);
+               const grossYieldConversion= parseFloat(changes['property'].currentValue.grossYield).toFixed(2);
+               this.formattedListPrice =  '$'+ listPriceConversion;
+               this.formattedMonthlyRent =  '$'+ monthlyRentConversion;
+               this.formattedGrossYield =  '$'+ grossYieldConversion;
+               this.originalProperty = <PropertyModel>{
+                                                          id: changes['property'].currentValue.id,
+                                                          address:changes['property'].currentValue.address,
+                                                          yearBuilt: changes['property'].currentValue.yearBuilt,
+                                                          listPrice:changes['property'].currentValue.listPrice,
+                                                          monthlyRent:changes['property'].currentValue.monthlyRent,
+                                                          grossYield:changes['property'].currentValue.grossYield
                                                     };
        }
     }
 
-    updateGarmentType(value){
+    updatePropertyType(value){
         this.updatedType = value;
     }
 
@@ -58,22 +63,25 @@ export class GridRowComponent  implements OnChanges{
         this.updateEditRowState();
     };
 
-    publishGarmentUpdate(f: NgForm){
+    publishPropertyUpdate(f: NgForm){
         this.isReadOnly = true;
         this.isChecked= false;
         this.liveInput_Class = 'noStyle';
         this.revealPublish_Class='un-revealed';
-        this.formattedAmount = '$'+(f.value.garmentPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
-        const priceConversion= parseFloat((f.value.garmentPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,''));
-        let updateGM:GarmentModel = <GarmentModel>{
-                                                      id:this.garment.id,
-                                                      name:f.value.garmentName,
-                                                      type: this.updatedType,
-                                                      price: parseFloat(priceConversion.toFixed(2)),
-                                                      inventory:parseInt(f.value.garmentInventory),
-                                                      thumbnail:this.garment.thumbnail
+        this.formattedListPrice = '$'+(f.value.listPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
+        this.formattedMonthlyRent = '$'+(f.value.monthlyRent).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
+        this.formattedGrossYield = '$'+(f.value.grossYield).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,'');
+        const listPriceConversion= parseFloat((f.value.listPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,''));
+        const monthlyRentConversion= parseFloat((f.value.monthlyRent).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig,''));
+        let updateProperty:PropertyModel = <PropertyModel>{
+                                                      id:this.property.id,
+                                                      address:f.value.address,
+                                                      yearBuilt: f.value.yearBuilt,
+                                                      listPrice: parseFloat(listPriceConversion.toFixed(2)),
+                                                      monthlyRent: parseFloat(monthlyRentConversion.toFixed(2)),
+                                                      grossYield:parseInt(f.value.grossYield)
                                                   };
-        this.updateGarmentModel.emit(updateGM)
+        this.updatePropertyModel.emit(updateProperty)
 
     }
 

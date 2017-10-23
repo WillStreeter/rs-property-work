@@ -20,7 +20,7 @@ import {PortalModel} from "../../../business-layer/models/portal.model";
 })
 export class PaginatorToolbarComponent implements OnInit {
     portalState$: Subscription;
-    currentGarmentCollection$:Subscription;
+    currentPropertyCollection$:Subscription;
     brokerRef:any;
     currentPage:number;
     viewablePerPage:number;
@@ -48,10 +48,10 @@ export class PaginatorToolbarComponent implements OnInit {
               this.currentPage = prtlState.currentPage;
       });
 
-      this.currentGarmentCollection$= this.brokerRef.storeObs.brokerCurrentGarmentCollection.subscribe( (garmentCollection)=>{
-              if(garmentCollection && garmentCollection.garments && garmentCollection.garments.length>0){
-                  this.totalNumberProducts = garmentCollection.garments.length;
-                  this.totalNumberOfPages = Math.ceil(garmentCollection.garments.length/this.viewablePerPage);
+      this.currentPropertyCollection$= this.brokerRef.storeObs.brokerCurrentGarmentCollection.subscribe( (propertyCollection)=>{
+              if(propertyCollection && propertyCollection.garments && propertyCollection.property.length>0){
+                  this.totalNumberProducts = propertyCollection.garments.length;
+                  this.totalNumberOfPages = Math.ceil(propertyCollection.garments.length/this.viewablePerPage);
                   this.pageList = Array.from(Array(this.totalNumberOfPages).keys());
                   if(this.totalNumberProducts<=5){
                      this.disabled5 = true;

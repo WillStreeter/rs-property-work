@@ -6,7 +6,7 @@ import { Component} from '@angular/core';
 
 @Component({
   moduleId: module.id,
-  selector: 'sd-home',
+  selector: 'app-sd-home',
   templateUrl: 'home.component.html',
   styleUrls: ['home.component.scss'],
 })

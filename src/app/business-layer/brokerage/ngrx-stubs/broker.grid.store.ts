@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { BrokerActionBuilder }  from '../../pubsub-broker/services/broker.action.builder';
+import { BrokerActionBuilder } from '../../pubsub-broker/services/broker.action.builder';
 import { BrokerAction  } from '../../pubsub-broker/models/broker.action.model'
 import * as fromRoot from '../../../data-layer/ngrx-data/reducers/index';
-import * as garmentActions from '../../../data-layer/ngrx-data/actions/properties.actions';
+import * as propertyActions from '../../../data-layer/ngrx-data/actions/properties.actions';
 import * as portalActions from '../../../data-layer/ngrx-data/actions/portal.actions';
-import * as GarmentActionTypes from '../../shared-types/actions/properties.action.types';
+import * as PropertyActionTypes from '../../shared-types/actions/properties.action.types';
 import * as PortalActionTypes from '../../shared-types/actions/portal.action.types';
 
 import { BrokerList } from './brokerlist';
@@ -14,37 +14,34 @@ import { BrokerList } from './brokerlist';
 
 @Injectable()
 export class BrokerGridStore {
-    brokerLabel:string = BrokerList.BROKER_GRID_STORE;
+    brokerLabel: string = BrokerList.BROKER_GRID_STORE;
     constructor( private store: Store<fromRoot.State>,
-                 private brkrActnBuilder:BrokerActionBuilder ) {
-                        this.store.dispatch(new garmentActions.GetGarmentCollection());
+                 private brkrActnBuilder: BrokerActionBuilder ) {
+                        this.store.dispatch(new propertyActions.GetPropertiesCollection());
                  }
 
-    getComponentSupplies():any{
+    getComponentSupplies(): any {
        return  Object.assign({
-                   brokerLabel:this.brokerLabel,
-                   storeObs:{
-                        brokerGarmentSubset: this.store.select(fromRoot.getCurrentSubSet),
+                   brokerLabel: this.brokerLabel,
+                   storeObs: {
+                        brokerPoperties: this.store.select(fromRoot.getCurrentPropertiesCollection),
                         brokerPortalState: this.store.select(fromRoot.getPortalState),
                     },
-                   storeDsp:{
-                       UPDATE_SORT_STATE:this.brkrActnBuilder.create(  PortalActionTypes.UPDATE_SORT_STATE,
+                   storeDsp: {
+                       UPDATE_SORT_STATE: this.brkrActnBuilder.create(  PortalActionTypes.UPDATE_SORT_STATE,
                                                            this.brokerLabel,
                                                           null),
 
-                       UPDATE_GARMENT_IN_COLLECTION_ATTEMPT:this.brkrActnBuilder.create(
-                                                            GarmentActionTypes.UPDATE_GARMENT_IN_COLLECTION_ATTEMPT,
+                       UPDATE_PROPERTY_IN_COLLECTION_ATTEMPT: this.brkrActnBuilder.create(
+                                                            PropertyActionTypes.UPDATE_PROPERTY_IN_COLLECTION_ATTEMPT,
                                                             this.brokerLabel,
                                                              null),
 
-                       ADD_GARMENT_TO_COLLECTION_ATTEMPT:this.brkrActnBuilder.create(
-                                                            GarmentActionTypes.ADD_GARMENT_TO_COLLECTION_ATTEMPT,
-                                                            this.brokerLabel,
-                                                             null),
-                       SET_GARMENT_ADD_BTN_STATUS:this.brkrActnBuilder.create(  PortalActionTypes.SET_GARMENT_ADD_BTN_STATUS,
+                       SET_PROPERTY_ADD_BTN_STATUS: this.brkrActnBuilder.create(  PortalActionTypes.SET_PROPERTY_ADD_BTN_STATUS,
                            this.brokerLabel,
                            null),
-                       UPDATE_REVEAL_GARMENT_ADD_ROW:this.brkrActnBuilder.create(  PortalActionTypes.UPDATE_REVEAL_GARMENT_ADD_ROW,
+
+                       UPDATE_REVEAL_PROPERTY_ADD_ROW: this.brkrActnBuilder.create(  PortalActionTypes.UPDATE_REVEAL_PROPERTY_ADD_ROW,
                            this.brokerLabel,
                            null),
                       }
@@ -52,22 +49,13 @@ export class BrokerGridStore {
 
     }
 
-    dispatchAction(brokerAction:BrokerAction):void {
-         switch(brokerAction.actionType){
-             case PortalActionTypes.UPDATE_SORT_STATE:
-                 this.store.dispatch(new portalActions.UpdateCurrentSortState(brokerAction.payLoad));
-             break;
-             case PortalActionTypes.SET_GARMENT_ADD_BTN_STATUS:
+    dispatchAction( brokerAction: BrokerAction ): void {
+         switch ( brokerAction.actionType ) {
+             case PortalActionTypes.SET_PROPERTY_ADD_BTN_STATUS:
                  this.store.dispatch(new portalActions.SetGarmentAddBtnStatus(brokerAction.payLoad));
                  break;
-             case PortalActionTypes.UPDATE_REVEAL_GARMENT_ADD_ROW:
-                 this.store.dispatch(new portalActions.UpdateAddRowGarment(brokerAction.payLoad));
-                 break;
-             case GarmentActionTypes.UPDATE_GARMENT_IN_COLLECTION_ATTEMPT:
-                 this.store.dispatch(new garmentActions.UpdateGarmentAttempt(brokerAction.payLoad));
-             break;
-             case GarmentActionTypes.ADD_GARMENT_TO_COLLECTION_ATTEMPT:
-                 this.store.dispatch(new garmentActions.AddGarmentToCollectionAttempt(brokerAction.payLoad));
+             case PropertyActionTypes.UPDATE_PROPERTY_IN_COLLECTION_ATTEMPT:
+                 this.store.dispatch(new propertyActions.UpdatePropertyAttempt(brokerAction.payLoad));
              break;
          }
     }

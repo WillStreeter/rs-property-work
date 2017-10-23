@@ -1,45 +1,33 @@
 <!-- ngrx smart-container-->
  <form  fxLayout="row"
-           class="grid-row" #f="ngForm" (ngSubmit)="publishGarmentUpdate(f)" novalidate  >
+           class="grid-row" #f="ngForm" (ngSubmit)="publishPropertyUpdate(f)" novalidate  >
      <div fxLayout="column" fxFlex="5">
           <md-checkbox [checked]="isChecked" [disabled]="rowUpdateState"
-               (change)="turnPublishingOn(garment.id)"></md-checkbox>
+               (change)="turnPublishingOn(property.id)"></md-checkbox>
      </div>
-     <div fxLayout="column" fxFlex="5">
-          <div class="img-thumb">
-               <img src="{{garment.thumbnail}}" alt="{{'image for'+garment.name}}">
-          </div>
+     <div class="property-address" fxLayout="column" fxFlex="40">
+         <input id="propertyAddress"  [className]="liveInput_Class"
+                 [(ngModel)]="property.address" [readonly]="isReadOnly"  placeholder=""  name="propertyAddress">
      </div>
-     <div class="garment-name" fxLayout="column" fxFlex="40">
-         <input id="garmentName"  [className]="liveInput_Class"
-                 [(ngModel)]="garment.name" [readonly]="isReadOnly"  placeholder=""  name="garmentName">
+     <div class="property-year-built" fxLayout="column" fxFlex="15">
+         <input id="propertyYearBuilt"  [className]="liveInput_Class"
+                 [(ngModel)]="property.yearBuilt" [readonly]="isReadOnly"  placeholder=""  name="propertyYearBuilt">
      </div>
-     <div class="garment-type" fxLayout="column" fxFlex="15">
-         <div *ngIf="isReadOnly==false">
-
-                 <div class="garment-toolbar-type" fxLayout="column" fxFlex="15">
-                    <button md-button type="button"  [mdMenuTriggerFor]="type" class="type-btn-trigger">
-                         {{ updatedType}}
-                    </button>
-                    <md-menu #type="mdMenu">
-                      <button md-menu-item type="button" (click)="updateGarmentType('Physical')">Physical</button>
-                      <button md-menu-item type="button" (click)="updateGarmentType('Digital')">Digital</button>
-                      <button md-menu-item type="button" (click)="updateGarmentType('Service')">Service</button>
-                    </md-menu>
-                 </div>
-         </div>
-         <input *ngIf="isReadOnly==true" id="garmentType"  [(ngModel)]="updatedType" [readonly]="isReadOnly" placeholder="" name="garmentType">
+     <div class="property-list-price" fxLayout="column" fxFlex="15">
+         <input id="propertyListPrice"  [className]="liveInput_Class"
+          [(ngModel)]="formattedListPrice"
+          [readonly]="isReadOnly"  placeholder="" name="propertyListPrice">
      </div>
-     <div class="garment-price" fxLayout="column" fxFlex="15">
-         <input id="garmentPrice" [className]="liveInput_Class"
-          [(ngModel)]="formattedAmount"
-          [readonly]="isReadOnly"  placeholder="" name="garmentPrice">
+     <div class="property-monthly-rent" fxLayout="column" fxFlex="15">
+         <input id="propertyMonthlyRent"  [className]="liveInput_Class"
+          [(ngModel)]="formattedMonthlyRent"
+          [readonly]="isReadOnly"  placeholder="" name="propertyMonthlyRent">
      </div>
-     <div class="garment-inventory" fxLayout="column" fxFlex="10">
-         <input id="garmentInventory" [className]="liveInput_Class"
-            [(ngModel)]="garment.inventory" [readonly]="isReadOnly"  placeholder="" name="garmentInventory">
+     <div class="property-gross-yield" fxLayout="column" fxFlex="15">
+         <input id="propertyGrossYield"  [className]="liveInput_Class"
+          [(ngModel)]="formattedGrossYield"
+          [readonly]="isReadOnly"  placeholder="" name="propertyGrossYield">
      </div>
-
      <div *ngIf="!isReadOnly"  fxLayout="column" class="un-revealed" fxFlex="5">
                 <button md-icon-button type="submit"    class="save-button">
                         <i class="material-icons save-icon" aria-label="save changes" >save</i>

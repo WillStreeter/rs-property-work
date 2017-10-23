@@ -33,10 +33,11 @@ md-checkbox {
     border-width: 1.75px;
 }
 
-.garment-name,
-.garment-type,
-.garment-price,
-.garment-inventory{
+.property-address,
+.property-year-built,
+.property-list-price,
+.property-monthly-rent,
+.property-gross-yield{
     margin:auto;
 }
 
@@ -51,22 +52,24 @@ input{
     font-size:1em;
     color:darken($border-reg-color,10%)
 }
-.garment-type{
+.property-type{
     input {
         text-align: left;
     }
 }
 
-.garment-price{
+.property-address,
+.property-year-built,
+.property-list-price,
+.property-monthly-rent,
+.property-gross-yield{
     input {
         text-align: left;
     }
 }
-.garment-inventory{
-    input {
-        text-align: left;
-    }
-}
+
+
+
 
 .active-row{
 

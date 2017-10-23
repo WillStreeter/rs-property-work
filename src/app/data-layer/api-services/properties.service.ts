@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpWrapperService } from '../http.wrapper.service';
-import { HttpParams } from '../interfaces/httpParams.model';
-import {Garment} from "./garment-mock/garment.clone";
-import { environment } from '../../../../environments/environment';
+import { HttpWrapperService } from './http.wrapper.service';
+import { HttpParams } from './interfaces/httpParams.model';
+import {Property} from "./mock/property.clone";
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class PropertiesService {
 
-  propertiesUrl = 'http://dev1-sample.azurewebsites.net/properties.json';  // URL to web api
+  initialPropertyUrl = 'http://dev1-sample.azurewebsites.net/properties.json';
+  propertiesUrl = 'api/properties';  // URL to web api
 
   constructor(private httpWrapperService: HttpWrapperService) { }
 
-  getProperties(ErrorActionType:string,
-              SpecificErrorType:string,
-              SuccessType:string){
-    let getParams: HttpParams = {
+  getProperties(ErrorActionType: string,
+              SpecificErrorType: string,
+              SuccessType: string ) {
+    let getParams : HttpParams = {
       errorActionType: ErrorActionType,
       specificErrorType: SpecificErrorType,
       responseObject: 'properties',
-      successActionType:SuccessType,
-      uri: `${this.propertiesUrl}`
+      successActionType: SuccessType,
+      uri: `${this.initialPropertyUrl}`
     };
-    return this.httpWrapperService.get(getParams).map( (response)=>(this.checkForClientDev(response)));
+    return this.httpWrapperService.get(getParams).map( (response) => {
+        console.log('PropertiesService =response = ', response)
+        return (this.checkForClientDev(response));
+    });
   }
 
-  getGarment(payload: {
+  getProperty(payload: {
                         id:number
                       },
              ErrorActionType:string,
@@ -35,14 +39,14 @@ export class PropertiesService {
       errorActionType: ErrorActionType,
       specificErrorType: SpecificErrorType,
       payload: payload,
-      responseObject: 'garment',
+      responseObject: 'property',
       successActionType: SuccessType,
-      uri: `${this.garmentsUrl}/${payload.id}`
+      uri: `${this.propertiesUrl}/${payload.id}`
     };
     return this.httpWrapperService.post(getParams).map( (response)=>(this.checkForClientDev(response)));
   }
 
-  addGarment( payload: {
+  addProperty( payload: {
                         name: string,
                         type: string,
                         price:number,
@@ -57,16 +61,16 @@ export class PropertiesService {
       errorActionType:ErrorActionType,
       specificErrorType: SpecificErrorType,
       payload: payload,
-      responseObject: 'garment',
+      responseObject: 'property',
       successActionType: SuccessType,
-      uri:  `${this.garmentsUrl}/add`
+      uri:  `${this.propertiesUrl}/add`
     };
     return this.httpWrapperService.post(postParams).map( (response)=>this.checkForClientDev(response));
   }
 
 
-  updateGarment(payload: {
-                             garment:Garment
+  updateProperty(payload: {
+                             property:Property
                          },
                ErrorActionType:string,
                SpecificErrorType:string,
@@ -75,15 +79,15 @@ export class PropertiesService {
       errorActionType: ErrorActionType,
       specificErrorType: SpecificErrorType,
       payload: payload,
-      responseObject: 'garment',
+      responseObject: 'property',
       successActionType: SuccessType,
-      uri: `${this.garmentsUrl}/update`
+      uri: `${this.propertiesUrl}/update`
     };
     return this.httpWrapperService.put(postParams).map( (response)=>this.checkForClientDev(response))
   }
 
   deleteGarment(payload: {
-                             garment:Garment
+                             property:Property
                          },
                ErrorActionType:string,
                SpecificErrorType:string,
@@ -92,9 +96,9 @@ export class PropertiesService {
       errorActionType: ErrorActionType,
       specificErrorType: SpecificErrorType,
       payload: payload,
-      responseObject: 'garment',
+      responseObject: 'property',
       successActionType: SuccessType,
-      uri: `${this.garmentsUrl}/delete`
+      uri: `${this.propertiesUrl}/delete`
     };
     return this.httpWrapperService.post(postParams);
   }
@@ -103,10 +107,10 @@ export class PropertiesService {
   private checkForClientDev(response:any){
    // because I am using api in memory for a gh page I am commenting this out
      if(environment.production ) {
-        //return response;
-        return Object.assign(response,{payload: <Garment[]> response.payload['data'] } );
+        return response;
+        //return Object.assign(response,{payload: <Property[]> response.payload['data'] } );
      }else{
-        return Object.assign(response,{payload: <Garment[]> response.payload['data'] } );
+        return Object.assign(response,{payload: <Property[]> response.payload['data'] } );
      }
 
   }

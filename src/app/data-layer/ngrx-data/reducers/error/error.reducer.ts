@@ -20,8 +20,8 @@ export const initialState: State = {
 export function reducer(state = initialState, action: errorActions.Actions): State {
   switch (action.type) {
     case ErrorActionTypes.REPORT_ERROR: {
-          let errorObj = Object.assign({},action.payload, {id:(Date.now()).toString()});
-          const error:ErrorModel = <ErrorModel>action.payload;
+          let errorObj = Object.assign({}, action.payload, {id: ( Date.now()).toString()});
+          const error: ErrorModel = <ErrorModel>action.payload;
 
           return {
             ids: [ ...state.ids, error.id ],
@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: errorActions.Actions): Sta
           };
     }
     case ErrorActionTypes.REMOVE_ERROR: {
-          const errorId:string = <string>action.payload;
+          const errorId: string = <string>action.payload;
 
           if (state.ids.indexOf(errorId) > -1) {
              return state;

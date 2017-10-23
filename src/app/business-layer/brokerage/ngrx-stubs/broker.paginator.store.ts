@@ -6,12 +6,12 @@
  import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { BrokerActionBuilder }  from '../../pubsub-broker/services/broker.action.builder';
-import { BrokerAction  } from '../../pubsub-broker/models/broker.action.model'
+import { BrokerActionBuilder } from '../../pubsub-broker/services/broker.action.builder';
+import { BrokerAction  } from '../../pubsub-broker/models/broker.action.model';
 import * as fromRoot from '../../../data-layer/ngrx-data/reducers/index';
-import * as garmentActions from '../../../data-layer/ngrx-data/actions/properties.actions';
+import * as propertyActions from '../../../data-layer/ngrx-data/actions/properties.actions';
 import * as portalActions from '../../../data-layer/ngrx-data/actions/portal.actions';
-import * as GarmentActionTypes from '../../shared-types/actions/properties.action.types';
+import * as PropertiesActionTypes from '../../shared-types/actions/properties.action.types';
 import * as PortalActionTypes from '../../shared-types/actions/portal.action.types';
 
 import { BrokerList } from './brokerlist';
@@ -19,31 +19,28 @@ import { BrokerList } from './brokerlist';
 
 @Injectable()
 export class BrokerPaginatorStore {
-    brokerLabel:string = BrokerList.BROKER_PAGINATOR_STORE;
+    brokerLabel: string = BrokerList.BROKER_PAGINATOR_STORE;
     constructor( private store: Store<fromRoot.State>,
-                 private brkrActnBuilder:BrokerActionBuilder ) { }
+                 private brkrActnBuilder: BrokerActionBuilder ) { }
 
-    getComponentSupplies():any{
+    getComponentSupplies(): any {
        return  Object.assign({
-                   brokerLabel:this.brokerLabel,
-                   storeObs:{
+                   brokerLabel: this.brokerLabel,
+                   storeObs: {
                         brokerPortalState: this.store.select(fromRoot.getPortalState),
-                        brokerCurrentGarmentCollection: this.store.select(fromRoot.getCurrentGarmentCollection)
+                        brokerCurrentPropertiesCollection: this.store.select(fromRoot.getCurrentPropertiesCollection)
                     },
-                   storeDsp:{
-                       SET_CURRENT_PAGE_NUMBER:this.brkrActnBuilder.create(  PortalActionTypes.SET_CURRENT_PAGE_NUMBER,
+                   storeDsp: {
+                       SET_CURRENT_PAGE_NUMBER: this.brkrActnBuilder.create(  PortalActionTypes.SET_CURRENT_PAGE_NUMBER,
                                                            this.brokerLabel,
-                                                             null),
-                       UPDATE_VIEWABLE_PER_PAGE_COUNT:this.brkrActnBuilder.create(  PortalActionTypes.UPDATE_VIEWABLE_PER_PAGE_COUNT,
-                                                           this.brokerLabel,
-                                                             null),
+                                                             null)
                       }
                 });
 
     }
 
-    dispatchAction(brokerAction:BrokerAction):void {
-         switch(brokerAction.actionType){
+    dispatchAction(brokerAction: BrokerAction ): void {
+         switch (brokerAction.actionType ) {
              case PortalActionTypes.SET_CURRENT_PAGE_NUMBER:
                  this.store.dispatch(new portalActions.SetCurrentPageNumber(brokerAction.payLoad));
              break;

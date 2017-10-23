@@ -4,8 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { HttpWrapperService } from '../api-services/http.wrapper.service';
-import { HttpGarmentService } from '../api-services/garments/http.garment.service';
-import { SortingServices }   from '../sorting-services/sorting.service';
+import { PropertiesService } from '../api-services/properties.service';
 
 /*
      ngrx base library
@@ -21,7 +20,7 @@ import { reducers, metaReducers } from  './reducers/index';
 
 
 import { ErrorEffects } from './effects/error.effects';
-import { GarmentEffects } from './effects/properties.effects';
+import { PropertiesEffects } from './effects/properties.effects';
 import { PortalEffects } from './effects/portal.effects';
 
 
@@ -35,13 +34,12 @@ import { PortalEffects } from './effects/portal.effects';
                StoreModule.forRoot(reducers, { metaReducers }),
                EffectsModule.forRoot([]),
                EffectsModule.forFeature([ErrorEffects,
-                                      GarmentEffects,
+                                      PropertiesEffects,
                                       PortalEffects]) ],
     exports: [],
     providers: [
                  HttpWrapperService,
-                 SortingServices,
-                 HttpGarmentService  ]
+                 PropertiesService  ]
 })
 export class NGRxDataModule {
 
@@ -54,8 +52,7 @@ export class NGRxDataModule {
     return {
       ngModule: NGRxDataModule,
       providers: [ HttpWrapperService,
-                   SortingServices,
-                   HttpGarmentService]
+                   PropertiesService]
     }
   }
 }

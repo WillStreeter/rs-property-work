@@ -27,7 +27,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
  */
 import * as fromErrors from './error/error.reducer';
 import * as fromPortal from './portal/portal.reducer';
-import * as fromGarment from './garment/garment.reducer';
+import * as fromProperties from './properties/properties.reducer';
 
 
 /**
@@ -37,7 +37,7 @@ import * as fromGarment from './garment/garment.reducer';
 export interface State {
   errors: fromErrors.State;
   portals: fromPortal.State;
-  garments: fromGarment.State;
+  properties: fromProperties.State;
 }
 
 
@@ -53,7 +53,7 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
   errors: fromErrors.reducer,
   portals: fromPortal.reducer,
-  garments: fromGarment.reducer,
+  properties: fromProperties.reducer,
 };
 
 // console.log all actions
@@ -88,17 +88,15 @@ export const getErrorEntities  = createSelector(getErrorState, fromErrors.getEnt
 
 
 
-export const getGarmentsState = createFeatureSelector<fromGarment.State>('garments');
+export const getPropertiesState = createFeatureSelector<fromProperties.State>('properties');
 
-export const getGarmentIds = createSelector(getGarmentsState, fromGarment.getIds);
+export const getPropertiesIds = createSelector(getPropertiesState, fromProperties.getIds);
 
-export const getCurrentCollectionId = createSelector(getGarmentsState, fromGarment.getCurrentCollectionId);
+export const getCurrentCollectionId = createSelector(getPropertiesState, fromProperties.getCurrentCollectionId);
 
-export const getGarmentEntities  = createSelector(getGarmentsState, fromGarment.getEntities);
+export const getPropertiesEntities  = createSelector(getPropertiesState, fromProperties.getEntities);
 
-export const getCurrentGarmentCollection  = createSelector(getGarmentsState, fromGarment.getCurrentGarmentCollection);
-
-export const getCurrentSubSet =  createSelector(getGarmentsState, fromGarment.getCurrentSubSet);
+export const getCurrentPropertiesCollection  = createSelector(getPropertiesState, fromProperties.getCurrentPropertiesCollection);
 
 
 
@@ -111,18 +109,12 @@ export const getCurrentSubSet =  createSelector(getGarmentsState, fromGarment.ge
 export const getPortalState = createFeatureSelector<fromPortal.State>('portals');
 
 
-export const getGarmentAddLock =  createSelector(getPortalState, fromPortal.getGarmentAddLock);
+export const getPropertyAddLock =  createSelector(getPortalState, fromPortal.getPropertyAddLock);
 
-export const getRevealAddGarmentRow =  createSelector(getPortalState, fromPortal.getRevealAddGarmentRow);
+export const getRevealAddPropertyRow =  createSelector(getPortalState, fromPortal.getRevealAddPropertyRow);
 
 export const getViewablePerPage = createSelector(getPortalState, fromPortal.getViewablePerPage);
 
 export const getCurrentPage = createSelector(getPortalState, fromPortal.getCurrentPage);
-
-export const getSortType = createSelector(getPortalState, fromPortal.getSortType);
-
-export const getSortBase = createSelector(getPortalState, fromPortal.getSortBase);
-
-export const getSortState = createSelector(getPortalState, fromPortal.getSortState);
 
 

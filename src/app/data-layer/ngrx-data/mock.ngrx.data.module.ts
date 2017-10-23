@@ -5,10 +5,10 @@ import { ModuleWithProviders,  NgModule, Optional, SkipSelf} from '@angular/core
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
-import { HttpGarmentService } from '../api-services/garments/http.garment.service';
+
+import { PropertiesService } from '../api-services/properties.service';
 import { HttpWrapperService } from '../api-services/http.wrapper.service';
-import { SortingServices }   from '../sorting-services/sorting.service';
-import { GarmentInMemDataService } from '../api-services/garments/garment-mock/garment.in.mem.data.service';
+import { PropertyInMemDataService } from '../api-services/mock/property.in.mem.data.service';
 import { InMemoryWebApiModule  } from 'angular-in-memory-web-api';
 
 /*
@@ -25,7 +25,7 @@ import { reducers, metaReducers } from  './reducers/index';
 
 
 import { ErrorEffects } from './effects/error.effects';
-import { GarmentEffects } from './effects/properties.effects';
+import { PropertiesEffects } from './effects/properties.effects';
 import { PortalEffects } from './effects/portal.effects';
 
 
@@ -37,16 +37,15 @@ import { PortalEffects } from './effects/portal.effects';
     imports: [ CommonModule,
                HttpClientModule,
                StoreModule.forRoot(reducers, { metaReducers }),
-               InMemoryWebApiModule.forRoot(GarmentInMemDataService),
+               InMemoryWebApiModule.forRoot(PropertyInMemDataService),
                EffectsModule.forRoot([]),
                EffectsModule.forFeature([ErrorEffects,
-                                      GarmentEffects,
+                                      PropertiesEffects,
                                       PortalEffects]) ],
     exports: [],
     providers: [
                  HttpWrapperService,
-                 SortingServices,
-                 HttpGarmentService  ]
+                 PropertiesService  ]
 })
 export class MockNGRxDataModule {
 
@@ -60,8 +59,7 @@ export class MockNGRxDataModule {
     return {
       ngModule: MockNGRxDataModule,
       providers: [ HttpWrapperService,
-                   SortingServices,
-                   HttpGarmentService]
+                   PropertiesService]
     }
   }
 }

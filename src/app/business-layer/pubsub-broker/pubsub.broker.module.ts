@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrokerActionBuilder }  from './services/broker.action.builder';
+import { BrokerActionBuilder } from './services/broker.action.builder';
 import { BrokerDispatcherService } from './services/broker.dispatcher.service';
 import { BrokerPublisher } from './outlet/broker.publisher';
 
@@ -17,8 +17,8 @@ export class PubSubBrokerModule {
       ngModule: PubSubBrokerModule,
       providers: [ BrokerActionBuilder,
                    BrokerDispatcherService,
-                   BrokerPublisher ],
-    }
+                   BrokerPublisher ]
+    };
   }
 
   constructor(@Optional() @SkipSelf() parentModule: PubSubBrokerModule) {

@@ -5,9 +5,8 @@ import { ControlMessagesComponent } from '../custom-validators/control.messaging
 import { ValidationService } from '../../../business-layer/validators/services/validation.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { GarmentGridComponent } from './garment.grid.component';
+import { PropertiesGridComponent } from './properties.grid.component';
 import { GridRowComponent } from '../grid-row/grid.row.component';
-import { GridCreateRowComponent } from '../grid-create-row/grid.create.row.component';
 import { GridToolbarComponent } from '../grid-toolbar/grid.toolbar.component';
 import { MaterialModule } from '../../material.module';
 
@@ -20,16 +19,14 @@ import { MaterialModule } from '../../material.module';
                FlexLayoutModule ],
     providers: [ ValidationService ,
                   CurrencyPipe],
-    declarations: [ GarmentGridComponent,
+    declarations: [ PropertiesGridComponent,
                     ControlMessagesComponent,
-                    GridCreateRowComponent,
                     GridToolbarComponent,
                     GridRowComponent ],
-    exports: [GarmentGridComponent,
+    exports: [PropertiesGridComponent,
               ControlMessagesComponent,
-              GridCreateRowComponent,
               GridToolbarComponent,
               GridRowComponent]
 })
 
-export class GarmentGridModule { }
+export class PropertyGridModule { }

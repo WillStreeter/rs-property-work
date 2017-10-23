@@ -1,11 +1,11 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from'@angular/core';
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NGRxBrokerConsumer }  from './consumers/ngrx.broker.consumer';
+import { NGRxBrokerConsumer } from './consumers/ngrx.broker.consumer';
 import { NGRxDataModule } from '../../data-layer/ngrx-data/ngrx.data.module';
 
 
-import { BROKER_PROVIDERS }  from './ngrx-stubs/index';
+import { BROKER_PROVIDERS } from './ngrx-stubs/index';
 
 
 @NgModule({
