@@ -2,10 +2,10 @@
 <div class='flex-container' fxFlexFill>
    <div class='grid-layout' fxLayout='column' fxFlex='100'  >
        <grid-toolbar></grid-toolbar>
-       <grid-row *ngFor=' let property of currentProperties | async'
+       <app-grid-row *ngFor=' let property of currentProperties | async'
                  (updatePropertyModel)='propertyModelUpdate($event)'
                  (addRowState)='updateEditRowState($event)'
                  [rowUpdateState]='revealCreateRow'
-                 [property]='property'></grid-row>
+                 [property]='property'></app-grid-row>
    </div>
 </div>

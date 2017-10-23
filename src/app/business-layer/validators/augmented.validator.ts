@@ -56,7 +56,8 @@ export const AugmentedValidators  = {
   matches: getParamValidator('matches'),
 
   //custom
-  passwordPattern: ValidationService.passwordValidator()
+  alphaWithSpaces: ValidationService.alphaWithSpacesValidator(),
+  alphaNumericWithSpaces: ValidationService.alphaNumericWithSpacesValidator()
 
 
 };

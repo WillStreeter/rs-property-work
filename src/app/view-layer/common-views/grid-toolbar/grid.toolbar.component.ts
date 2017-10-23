@@ -1,7 +1,7 @@
 /**
  * Created by willstreeter on 9/10/17.
  */
-import { Component,Output, EventEmitter  } from '@angular/core';
+import { Component  } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 

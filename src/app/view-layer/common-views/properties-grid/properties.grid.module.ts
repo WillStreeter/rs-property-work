@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlMessagesComponent } from '../custom-validators/control.messaging.component';
 import { ValidationService } from '../../../business-layer/validators/services/validation.service';
+import { DataStructureServices } from '../../../business-layer/helpers/data.structures.service';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PropertiesGridComponent } from './properties.grid.component';
@@ -18,6 +19,7 @@ import { MaterialModule } from '../../material.module';
                MaterialModule,
                FlexLayoutModule ],
     providers: [ ValidationService ,
+                  DataStructureServices,
                   CurrencyPipe],
     declarations: [ PropertiesGridComponent,
                     ControlMessagesComponent,

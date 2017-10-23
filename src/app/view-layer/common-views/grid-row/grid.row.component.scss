@@ -18,19 +18,13 @@ md-checkbox {
     border-color:$input-color;
 }
 
-.img-thumb {
-    width: 35px;
-    height: 35px;
-    margin:auto;
+.state-label{
+   color:$noc-color;
+   line-height:40px;
 }
 
-/* resize images */
-.img-thumb img {
-    width: 100%;
-    height: auto;
-    border-style: solid;
-    border-color:$steel-white;
-    border-width: 1.75px;
+label.state-label{
+  vertical-align:middle;
 }
 
 .property-address,
@@ -41,17 +35,6 @@ md-checkbox {
     margin:auto;
 }
 
-input{
-    border-width:1px;
-    border-style:solid;
-    border-color:transparent;
-    /* border-color:$steel-white;*/
-    padding:5px;
-    padding-left:2px;
-    margin:10px;
-    font-size:1em;
-    color:darken($border-reg-color,10%)
-}
 .property-type{
     input {
         text-align: left;
@@ -68,6 +51,32 @@ input{
     }
 }
 
+.property-input-city,
+.property-input-address{
+   font-size:15px;
+   flex-direction: row;
+   width: 75%;
+   align-items: center;
+   padding-left:0.35em;
+   padding-right:0.35em;
+   color: $noc-color;
+}
+
+.property-input-container{
+   font-size:15px;
+   display: flex;
+   flex-direction: row;
+   width: 75%;
+   align-items: center;
+   padding-left:0.35em;
+   padding-right:0.35em;
+   color: $noc-color;
+}
+
+
+.property-placeholder-address-label{
+   color :$input-color;
+}
 
 
 
@@ -75,10 +84,28 @@ input{
 
 }
 
-.un-revealed{
+.un-revealed .property-placeholder-label{
+   visibility: hidden;
+   color :$input-color;
 }
-.do-reveal{
+
+.un-revealed .property-input-container{
+   color :$input-color;
 }
+
+.do-reveal {
+     align-items: center;
+     padding-top:10%;
+     padding-bottom:10%;
+}
+
+.do-reveal.property-placeholder-label{
+     color :lighten($noc-color, 6%);
+     visibility: visible;
+  }
+
+
+
 .save-button{
   background-color:transparent;
   border:none;

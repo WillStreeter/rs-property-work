@@ -10,6 +10,7 @@ import {
   MdMenuModule,
   MdToolbarModule,
   MdIconModule,
+  MdInputModule,
   MdCardModule
 } from '@angular/material';
 
@@ -18,6 +19,7 @@ import {
   MdButtonModule,
   MdButtonToggleModule,
   MdCheckboxModule,
+  MdInputModule,
   MdMenuModule,
   MdToolbarModule,
   MdIconModule,
@@ -28,6 +30,7 @@ import {
   MdButtonToggleModule,
   MdCheckboxModule,
   MdMenuModule,
+  MdInputModule,
   MdToolbarModule,
   MdIconModule,
   MdCardModule
