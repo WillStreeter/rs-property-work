@@ -24,11 +24,11 @@
           [readonly]="isReadOnly"  placeholder="" name="propertyMonthlyRent">
      </div>
      <div class="property-gross-yield" fxLayout="column" fxFlex="10">
-         <input id="propertyGrossYield"  [className]="liveInput_Class"
+         <input id="propertyGrossYield"
           [(ngModel)]="formattedGrossYield"
-          [readonly]="isReadOnly"  placeholder="" name="propertyGrossYield">
+          [readonly]="true"  placeholder="" name="propertyGrossYield">
      </div>
-     <div *ngIf="!isReadOnly"  fxLayout="column" class="un-revealed" fxFlex="5">
+     <div *ngIf="!isReadOnly"  fxLayout="column" class="un-revealed" fxFlex="2">
                 <button md-icon-button type="submit"    class="save-button">
                         <i class="material-icons save-icon" aria-label="save changes" >save</i>
                 </button>
