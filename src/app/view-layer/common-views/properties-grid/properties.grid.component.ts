@@ -45,6 +45,7 @@ export class PropertiesGridComponent implements OnInit {
     }
 
     propertyModelUpdate(property:PropertyModel){
+        console.log('[PropertiesGridComponent] --propertyModelUpdate-  property =  ', property );
          var note = this.brokerRef.storeDsp.UPDATE_PROPERTY_IN_COLLECTION_ATTEMPT;
          note.payLoad = property;
          this.bDS.dispatchBrokerAction(note);

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges, OnInit, SimpleChanges, } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, FormControl,  Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl,  Validators } from '@angular/forms';
 import { AugmentedValidators } from '../../../business-layer/validators/augmented.validator';
 import { PropertyModel } from '../../../business-layer/models';
 import { DataStructureServices } from '../../../business-layer/helpers/data.structures.service';
@@ -36,8 +36,8 @@ export class GridRowComponent  implements OnInit, OnChanges {
 
      ngOnChanges(changes: SimpleChanges) {
        if (changes['property']) {
-               const listPriceConversion = parseFloat(changes['property'].currentValue.listPrice).toFixed(2);
-               const monthlyRentConversion = parseFloat(changes['property'].currentValue.monthlyRent).toFixed(2);
+               const listPriceConversion = parseFloat(changes['property'].currentValue.listPrice);
+               const monthlyRentConversion = parseFloat(changes['property'].currentValue.monthlyRent);
                const grossYieldConversion =  changes['property'].currentValue.grossYield > 0 ?
                                             parseFloat(changes['property'].currentValue.grossYield).toFixed(4) :
                                             0;
@@ -52,7 +52,9 @@ export class GridRowComponent  implements OnInit, OnChanges {
 
 
    ngOnInit() {
+      // const listPriceConvert = parseFloat(this.property.listPrice).toFixed(2);
         this.updatedProperty = this.fb.group( {
+
           model:  this.fb.group( {
                         address1: [ this.property.address1.trim(), [ Validators.required,
                                         Validators.minLength(5),
@@ -75,14 +77,14 @@ export class GridRowComponent  implements OnInit, OnChanges {
                                              Validators.minLength(4),
                                              Validators.maxLength(4),
                                              AugmentedValidators.isNumeric()]],
-                         listPrice: [ this.property.listPrice.toString(),  [ Validators.required,
+                         listPrice: [ this.property.listPrice,  [ Validators.required,
+                                             Validators.minLength(1),
+                                             Validators.maxLength(120),
+                                             AugmentedValidators.numericFloat()]],
+                         monthlyRent: [ this.property.monthlyRent, [ Validators.required,
                                              Validators.minLength(1),
                                              Validators.maxLength(7),
-                                             AugmentedValidators.isNumeric()]],
-                         monthlyRent: [ this.property.monthlyRent.toString(), [ Validators.required,
-                                             Validators.minLength(1),
-                                             Validators.maxLength(7),
-                                             AugmentedValidators.isNumeric()]]
+                                             AugmentedValidators.numericFloat()]]
                       })
         } );
     }
@@ -107,26 +109,26 @@ export class GridRowComponent  implements OnInit, OnChanges {
 
 
     onSubmit(propertyUpdate) {
-         if (this.updatedProperty.valid) {
-             console.log('onSubmit() this.updatedProperty.value.model =', this.updatedProperty.value.model);
-             const listPriceConversion = parseFloat((this.updatedProperty.value.listPrice).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig, ''));
-             const monthlyRentConversion = parseFloat((this.updatedProperty.value.monthlyRent).replace(/(?:[a-zA-Z]|\s|,|\$)+/ig, ''));
+        console.log('onSubmit() propertyUpdate.valid =', propertyUpdate.valid);
+         if (propertyUpdate.valid) {
+             console.log('onSubmit() propertyUpdate.value.model =', propertyUpdate.value.model);
              const updateProperty: PropertyModel = <PropertyModel>{
                                                         id: this.property.id,
-                                                        address1: this.updatedProperty.value.model.address1,
-                                                        city: this.updatedProperty.value.city,
-                                                        country: this.updatedProperty.value.country,
-                                                        county:  this.updatedProperty.value.county,
-                                                        district: this.updatedProperty.value.district,
+                                                        address1: propertyUpdate.value.model.address1,
+                                                        city: propertyUpdate.value.model.city,
+                                                        country: propertyUpdate.value.model.country,
+                                                        county:  propertyUpdate.value.model.county,
+                                                        district: propertyUpdate.value.model.district,
                                                         state:  this.updatedType ?  this.updatedType : this.property.state,
-                                                        zip:  this.updatedProperty.value.zip,
-                                                        zipPlus4:  this.updatedProperty.value.zipPlus4,
+                                                        zip:  propertyUpdate.value.model.zip,
+                                                        zipPlus4:  propertyUpdate.value.model.zipPlus4,
                                                         addressCombined: '',
-                                                        yearBuilt: this.updatedProperty.value.yearBuilt,
-                                                        listPrice: parseFloat(listPriceConversion.toFixed(2)),
-                                                        monthlyRent: parseFloat(monthlyRentConversion.toFixed(2)),
-                                                        grossYield: 0,
+                                                        yearBuilt: propertyUpdate.value.model.yearBuilt,
+                                                        listPrice: propertyUpdate.value.model.listPrice,
+                                                        monthlyRent: propertyUpdate.value.model.monthlyRent,
+                                                        grossYield: 0
                                                   };
+             console.log('onSubmit() emit updateProperty =', updateProperty);
               this.updatePropertyModel.emit(updateProperty);
          }
     }

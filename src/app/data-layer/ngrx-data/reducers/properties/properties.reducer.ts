@@ -53,7 +53,7 @@ export function reducer(state = initialState, action: propertiesActions.Actions)
                 let propertyProducts: PropertyModel[] = [...currentPropertyCollection.properties ];
                 propertyProducts = propertyProducts.map((product: PropertyModel) => {
                                          if(product.id === propertyUpdate.id){
-                                             product = Object.assign({}, propertyUpdate);
+                                             product = dataStructureServices.buildPropertyModel(propertyUpdate);
                                          }
                                          return product;
                                      });

@@ -43,14 +43,21 @@ md-dialog-container.mat-dialog-container,
 }
 
 
+.un-revealed md-form-field.property-input-container{
+  .mat-input-wrapper .mat-form-field-flex .mat-input-placeholder-wrapper label{
+    visibility:hidden;
+  }
+  .mat-input-wrapper  .mat-input-underline{
+    background-color:transparent;
+  }
+}
+
 md-button-toggle.toolbar-name{
   .mat-button-toggle-label-content{
       padding-left:1px !important;
   }
 }
-mat-Prefix{
-    float:left;
-}
+
 
 .grid-row{
   .save-button.mat-button-focus-overlay{

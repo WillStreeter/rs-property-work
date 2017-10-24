@@ -79,50 +79,59 @@ export class DataStructureServices {
 
      createPropertiesModels(propertyData: any ): PropertyModel[] {
         const propertyModels: PropertyModel[] = [];
+         const zeros = 0;
         propertyData.forEach((element) => {
-            const monthlyRent = element.financial  && element.financial.monthlyRent ? element.financial.monthlyRent : 0;
-            const listPrice =  element.financial && element.financial.listPrice ? element.financial.listPrice : 0;
-            const address1 =   element.address.address1 ? element.address.address1 : '';
-            const city =   element.address.city ?  element.address.city : '';
-            const county =   element.address.county ?   element.address.county : '';
-            const country =   element.address.country ?  element.address.country : '';
-            const district =   element.address.district ? element.address.district : '';
-            const state =   element.address.state ?  element.address.state : '';
-            const yearBuilt = element.physical ? element.physical.yearBuilt : 0;
-            const  propModel: PropertyModel = <PropertyModel>{};
-            propModel.id = element.id;
-                // address.address1
-            propModel.address1 = address1.trim();
-                // address.city
-            propModel.city = city.trim();
-                // address.county
-            propModel.county = county.trim();
-                // address.country
-            propModel.country = country.trim();
-                // address.district
-            propModel.district = district.trim();
-                // address.state
-            propModel.state = state;
-                // address.zip
-            propModel.zip = element.address.zip.trim();
-                // address.zipPlus4
-            propModel.zipPlus4 = element.address.zipPlus4;
-                // combined
-            propModel.addressCombined =  address1 + ' ' + city + ' ' +
-                                         county + ' ' + state + ' ' +
-                                         element.address.zip + ' ' + country;
-                // physical.yearBuilt
-            propModel.yearBuilt = yearBuilt;
-                // financial.listPrice
-            propModel.listPrice =  listPrice;
-                // financial.monthlyRent
-            propModel.monthlyRent =  monthlyRent;
-                // combined
-            propModel.grossYield =  (monthlyRent * 12 / listPrice);
+            let propModel = this.buildPropertyModel(element)
             propertyModels.push(propModel);
         });
 
         return propertyModels;
+    }
+
+
+    buildPropertyModel(element){
+        const zeros = 0;
+        const monthlyRent = element.financial  && element.financial.monthlyRent ? element.financial.monthlyRent.toFixed(2) : zeros.toFixed(2);
+        const listPrice =  element.financial && element.financial.listPrice ? element.financial.listPrice.toFixed(2) : zeros.toFixed(2);
+        const address1 =   element.address.address1 ? element.address.address1 : '';
+        const city =   element.address.city ?  element.address.city : '';
+        const county =   element.address.county ?   element.address.county : '';
+        const country =   element.address.country ?  element.address.country : '';
+        const district =   element.address.district ? element.address.district : '';
+        const state =   element.address.state ?  element.address.state : '';
+        const yearBuilt = element.physical ? element.physical.yearBuilt : 0;
+        const  propModel: PropertyModel = <PropertyModel>{};
+        propModel.id = element.id;
+        // address.address1
+        propModel.address1 = address1.trim();
+        // address.city
+        propModel.city = city.trim();
+        // address.county
+        propModel.county = county.trim();
+        // address.country
+        propModel.country = country.trim();
+        // address.district
+        propModel.district = district.trim();
+        // address.state
+        propModel.state = state;
+        // address.zip
+        propModel.zip = element.address.zip.trim();
+        // address.zipPlus4
+        propModel.zipPlus4 = element.address.zipPlus4;
+        // combined
+        propModel.addressCombined =  address1 + ' ' + city + ' ' +
+            county + ' ' + state + ' ' +
+            element.address.zip + ' ' + country;
+        // physical.yearBuilt
+        propModel.yearBuilt = yearBuilt;
+        // financial.listPrice
+        propModel.listPrice =  listPrice;
+        // financial.monthlyRent
+        propModel.monthlyRent =  monthlyRent;
+        // combined
+        propModel.grossYield =  (monthlyRent * 12 / listPrice);
+
+        return propModel;
     }
 
     getStatesHash(): Object {

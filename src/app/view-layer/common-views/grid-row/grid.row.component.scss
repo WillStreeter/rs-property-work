@@ -93,6 +93,12 @@ label.state-label{
    color :$input-color;
 }
 
+.un-revealed md-form-field.property-input-container{
+      .mat-input-wrapper .mat-form-field-flex{
+       background-color:pink !important;
+     }
+}
+
 .do-reveal {
      align-items: center;
      padding-top:10%;

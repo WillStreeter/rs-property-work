@@ -56,8 +56,11 @@ export const AugmentedValidators  = {
   matches: getParamValidator('matches'),
 
   //custom
+
   alphaWithSpaces: ValidationService.alphaWithSpacesValidator(),
-  alphaNumericWithSpaces: ValidationService.alphaNumericWithSpacesValidator()
+  alphaNumericWithSpaces: ValidationService.alphaNumericWithSpacesValidator(),
+  numericFloat: ValidationService.numericFloatValidator()
+
 
 
 };
