@@ -7,12 +7,12 @@
 ###  From src/app/
 
 ####  app-stage
-Contains the main bootstrapping process (intializing and aggregation of modules)
+ Contains the main bootstrapping process (intializing and aggregation of modules)
 
 ####  business-layer
- Here is where cross cutting servies and proces are store. ( I take CrossCutting to be servies share by both
- the  **view-layer** and  **data-layer** or by components with in the visual layer (Not for communicating
- between components only for DRY process)
+   Here is where cross cutting servies and proces are store. ( I take CrossCutting to be servies share by both
+   the  **view-layer** and  **data-layer** or by components with in the visual layer (Not for communicating
+   between components only for DRY process)
 
    **PubSub-broker / brokerage** : use to seed view-components with an observable to the redux/store
 
