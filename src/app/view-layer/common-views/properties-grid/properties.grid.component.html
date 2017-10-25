@@ -4,8 +4,6 @@
        <grid-toolbar></grid-toolbar>
        <app-grid-row *ngFor=' let property of currentProperties | async'
                  (updatePropertyModel)='propertyModelUpdate($event)'
-                 (addRowState)='updateEditRowState($event)'
-                 [rowUpdateState]='revealCreateRow'
                  [property]='property'></app-grid-row>
    </div>
 </div>

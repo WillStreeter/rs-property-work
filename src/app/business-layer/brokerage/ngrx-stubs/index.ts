@@ -1,18 +1,14 @@
-/**
- * This barrel file provides current brokers
- */
- import { BrokerGridStore } from './broker.grid.store';
- import { BrokerPaginatorStore } from './broker.paginator.store';
+
+
+import { BrokerGridStore } from './broker.grid.store';
 
 
 export const BROKER_PROVIDERS: any[] = [
-  BrokerGridStore,
-  BrokerPaginatorStore,
+  BrokerGridStore
 ];
 
 
 
 export * from './broker.grid.store';
-export * from  './broker.paginator.store';
 
 

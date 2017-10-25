@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
-  export const routes:Routes = [
+  export const routes: Routes = [
                   {
                       path: '',
                       loadChildren: 'app/view-layer/modules-by-route/home/home.module#HomeModule'

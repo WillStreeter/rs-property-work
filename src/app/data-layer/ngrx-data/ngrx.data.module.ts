@@ -12,7 +12,7 @@ import { PropertiesService } from '../api-services/properties.service';
  */
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { reducers, metaReducers } from  './reducers/index';
+import { reducers, metaReducers } from './reducers/index';
 
 
 /*
@@ -22,7 +22,6 @@ import { reducers, metaReducers } from  './reducers/index';
 
 import { ErrorEffects } from './effects/error.effects';
 import { PropertiesEffects } from './effects/properties.effects';
-import { PortalEffects } from './effects/portal.effects';
 
 
 /*
@@ -35,8 +34,7 @@ import { PortalEffects } from './effects/portal.effects';
                StoreModule.forRoot(reducers, { metaReducers }),
                EffectsModule.forRoot([]),
                EffectsModule.forFeature([ErrorEffects,
-                                      PropertiesEffects,
-                                      PortalEffects]) ],
+                                      PropertiesEffects]) ],
     exports: [],
     providers: [
                  HttpWrapperService,
@@ -56,6 +54,6 @@ export class NGRxDataModule {
       providers: [ HttpWrapperService,
                    DataStructureServices,
                    PropertiesService]
-    }
+    };
   }
 }

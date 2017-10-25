@@ -16,12 +16,12 @@ export class Property {
     state: string;
     zip: string;
     zipPlus4: string;
-    yearBuilt: string;
+    yearBuilt: number;
     listPrice: number;
     monthlyRent: number;
     grossYield: number;
 
-	constructor(values: Object = {}) {
+    constructor(values: Object = {}) {
         Object.assign(this, values);
     }
 }

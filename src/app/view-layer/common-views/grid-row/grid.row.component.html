@@ -5,28 +5,31 @@
      <div fxLayout="column" fxFlex="5">
           <md-checkbox [checked]="isChecked"
                        [disabled]="rowUpdateState"
-                       (change)="turnPublishingOn(property.id)"></md-checkbox>
+                       (change)="turnPublishingOn()"></md-checkbox>
      </div>
-     <div   *ngIf="isReadOnly === true" class="property-address" fxLayout="column" fxFlex="60">
+     <div   *ngIf="isReadOnly === true" class="property-address" fxLayout="column" fxFlex="45">
          {{property.addressCombined}}
      </div>
-     <div   *ngIf="isReadOnly === false" class="property-address" fxLayout="column" fxFlex="100"
-           formGroupName="model">
-          <md-form-field class="property-input-address">
-              <input  mdInput
-                      type="text"
-                      formControlName="address1">
-              <md-placeholder class="property-placeholder-address-label">Street Address</md-placeholder>
-          </md-form-field>
-          <control-messages [control]="updatedProperty.controls.model.controls.address1"></control-messages>
-
+         <div   *ngIf="isReadOnly === false"
+              class="property-address-revealed"
+              fxLayout="column" fxFlex="40"    formGroupName="model">
+          <div  fxLayout="row" fxFlex="100" class="live-edit">
+              <md-form-field class="property-input-address">
+                  <input  mdInput
+                          type="text"
+                          placeholder="Street Address"
+                          formControlName="address1">
+              </md-form-field>
+              <control-messages [control]="updatedProperty.controls.model.controls.address1"></control-messages>
+          </div>
           <div  fxLayout="row" fxFlex="100">
              <div fxLayout="column">
                   <md-form-field class="property-input-container">
                       <input  mdInput
                               type="text"
+                              placeholder="City"
+
                               formControlName="city">
-                      <md-placeholder class="property-placeholder-address-label">City</md-placeholder>
                   </md-form-field>
                   <control-messages [control]="updatedProperty.controls.model.controls.city"></control-messages>
               </div>
@@ -35,8 +38,8 @@
                   <md-form-field class="property-input-container">
                       <input  mdInput
                               type="text"
+                              placeholder="District"
                               formControlName="district">
-                      <md-placeholder class="property-placeholder-address-label">District</md-placeholder>
                   </md-form-field>
                   <control-messages [control]="updatedProperty.controls.model.controls.district"></control-messages>
               </div>
@@ -47,8 +50,8 @@
                   <md-form-field class="property-input-container">
                       <input  mdInput
                               type="text"
+                              placeholder="County"
                               formControlName="county">
-                      <md-placeholder class="property-placeholder-address-label">County</md-placeholder>
                   </md-form-field>
                   <control-messages [control]="updatedProperty.controls.model.controls.county"></control-messages>
               </div>
@@ -79,57 +82,62 @@
              <div fxLayout="column">
                      <div fxLayout="row">
                         <label class="state-label"> State</label>
-                        <button class="state-label" md-button type="typeState"  [mdMenuTriggerFor]="typeState" class="type-btn-trigger">
-                             {{ property.state}}
+                        <button md-button type="button"  [mdMenuTriggerFor]="typeState" class="type-btn-trigger">
+                             {{ stateSelected}}
                         </button>
                         <md-menu #typeState="mdMenu">
                           <button md-menu-item
-                                  type="typeState"
+                                  type="button"
                                    *ngFor="let key of statesAbrKeys"
-                                   (click)="updatePropertyType(key)">{{statesAbr[key]}}</button>
+                                   (click)="stateMenuChange(key)">{{statesAbr[key]}}</button>
                         </md-menu>
                      </div>
              </div>
           </div>
 
      </div>
-
-     <div class="property-year-built" fxLayout="column" fxFlex="10" formGroupName="model" [className]="liveInput_Class">
-          <md-form-field class="property-input-container">
-              <input  mdInput
-                      type="text"
-                      [readonly]="isReadOnly"
-                      placeholder="Year Built"
-                      formControlName="yearBuilt">
-          </md-form-field>
-          <control-messages [control]="updatedProperty.controls.model.controls.yearBuilt"></control-messages>
-     </div>
-     <div class="property-list-price" fxLayout="column" fxFlex="15"  formGroupName="model" [className]="liveInput_Class">
-          <md-form-field class="property-input-container">
-              <input  mdInput
-                      type="text"
-                      [readonly]="isReadOnly"
-                      placeholder="List Price"
-                      formControlName="listPrice">
-          </md-form-field>
-          <control-messages [control]="updatedProperty.controls.model.controls.listPrice"></control-messages>
-     </div>
-     <div class="property-monthly-rent" fxLayout="column" fxFlex="15"   formGroupName="model" [className]="liveInput_Class">
-          <md-form-field class="property-input-container">
-              <input  mdInput
-                      type="text"
-                      [readonly]="isReadOnly"
-                      placeholder="Monthly Rent"
-                      formControlName="monthlyRent">
-          </md-form-field>
-          <control-messages [control]="updatedProperty.controls.model.controls.monthlyRent"></control-messages>
-     </div>
-     <div class="property-gross-yield" fxLayout="column" fxFlex="10">
-        {{formattedGrossYield}}
-     </div>
-     <div *ngIf="!isReadOnly"  fxLayout="column" class="un-revealed" fxFlex="2">
-                <button md-icon-button type="submit"    class="save-button">
-                        <i class="material-icons save-icon" aria-label="save changes" >save</i>
-                </button>
-     </div>
+     <div fxLayout="column" fxFlex="55"   fxLayoutAlign="start center">
+             <div fxLayout="row" fxFlex="100">
+                     <div class="property-year-built" fxLayout="column" fxFlex="25" formGroupName="model" [className]="liveInput_Class">
+                          <md-form-field class="property-input-container">
+                              <input  mdInput
+                                      type="text"
+                                      [readonly]="isReadOnly"
+                                      placeholder="Year Built"
+                                      formControlName="yearBuilt">
+                          </md-form-field>
+                          <control-messages [control]="updatedProperty.controls.model.controls.yearBuilt"></control-messages>
+                     </div>
+                     <div class="property-list-price" fxLayout="column" fxFlex="30"  formGroupName="model" [className]="liveInput_Class">
+                          <md-form-field class="property-input-container" >
+                              <input  mdInput
+                                      type="text"
+                                      [readonly]="isReadOnly"
+                                      placeholder="List Price"
+                                      (focusout)="grossYieldCompute()"
+                                      formControlName="listPrice">
+                          </md-form-field>
+                          <control-messages [control]="updatedProperty.controls.model.controls.listPrice"></control-messages>
+                     </div>
+                     <div class="property-monthly-rent" fxLayout="column" fxFlex="25"   formGroupName="model" [className]="liveInput_Class">
+                          <md-form-field class="property-input-container">
+                              <input  mdInput
+                                      type="text"
+                                      [readonly]="isReadOnly"
+                                      (focusout)="grossYieldCompute()"
+                                      placeholder="Monthly Rent"
+                                      formControlName="monthlyRent">
+                          </md-form-field>
+                          <control-messages [control]="updatedProperty.controls.model.controls.monthlyRent"></control-messages>
+                     </div>
+                     <div class="property-gross-yield" fxLayout="column" fxFlex="20" [className]="liveInput_Class">
+                         <label class="gross-label"> {{formattedGrossYield}}</label>
+                     </div>
+             </div>
+             <div  *ngIf="!isReadOnly"   fxLayout="row" fxFlex="100" fxLayoutAlign="end bottom">
+                <button md-button  type="submit"    class="save-button">
+                        Save
+                 </button>
+             </div>
+   </div>
  </form>

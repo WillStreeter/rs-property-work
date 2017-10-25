@@ -49,8 +49,7 @@ export class PropertyInMemDataService implements InMemoryDbService {
     let options:ResponseOptions;
     switch(reqInfo.id){
       case "add":
-          const newItem:any = Object.assign({},reqInfo.req['body'], {id:this.getLocalStorage('poperties').length,
-                                                                     thumbnail:'/assets/images/mock-thumbs/bowtie-thumb.jpeg' } );
+          const newItem:any = Object.assign({},reqInfo.req['body'], {id:this.getLocalStorage('poperties').length});
           const updateItem:Property  = new Property(newItem);
           this.updateLocalStorageName('add', 'properties', updateItem );
           const data = updateItem;
@@ -70,7 +69,6 @@ export class PropertyInMemDataService implements InMemoryDbService {
       const properties:Property[] = localProperties;
 
 
-      console.log('PropertyInMemDataService  createDb properties = ', properties);
       this.setLocalStorage('properties', properties)
       return {properties} ;
   }
@@ -87,16 +85,17 @@ export class PropertyInMemDataService implements InMemoryDbService {
 
   private updateLocalStorageName(type:string, collectionName:string , itemUpdate:any){
         let localCollection  = this.getLocalStorage(collectionName);
-          if(type ==='update'){
+          if( type === 'update' ) {
               const updateCollection = localCollection.map(item => {
-                                          if(item.id === itemUpdate.id){
+                                          if ( item.id === itemUpdate.id ) {
                                               item = Object.assign({}, item, itemUpdate);
                                           }
+                                          return item;
                                    });
-              this.setLocalStorage(collectionName, updateCollection)
-          }else{
+              this.setLocalStorage(collectionName, updateCollection);
+          } else {
 
-            localCollection = [...localCollection, itemUpdate]
+              localCollection = [...localCollection, itemUpdate]
              this.setLocalStorage(collectionName, localCollection)
           }
 

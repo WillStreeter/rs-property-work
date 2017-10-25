@@ -11,21 +11,15 @@ import { Router } from '@angular/router';
 import { Store, Action } from '@ngrx/store';
 import { Actions, Effect, toPayload } from '@ngrx/effects';
 import * as errorActions from '../actions/error.actions';
-import * as portalActions from '../actions/portal.actions';
 import * as propertyActions from '../actions/properties.actions';
 import { PropertiesService } from '../../api-services/properties.service';
 import * as fromRoot from '../reducers/index';
-import { PropertyModel, PropertyAddModel} from '../../../business-layer/models';
+import { PropertyModel} from '../../../business-layer/models';
 
 
 
 @Injectable()
 export class PropertiesEffects {
-
-
-
-    //@Effect( )  startUpApp$: Observable<Action> = Observable.of(new propertyActions.GetGarmentCollection());
-
 
     @Effect() fetchPropertiesCollection: Observable<Action>  = this.actions$
         .ofType(propertyActions.PropertiesTypes.FETCH_PROPERTIES_COLLECTION_ATTEMPT)
@@ -40,8 +34,7 @@ export class PropertiesEffects {
     @Effect() updatePropertyInCollectionAttempt = this.actions$
         .ofType(propertyActions.PropertiesTypes.UPDATE_PROPERTY_IN_COLLECTION_ATTEMPT)
         .map((action: propertyActions.UpdatePropertyAttempt) => action.payload)
-        .switchMap( (payload:any ) => {
-          console.log('PropertiesEffects =updatePropertyInCollectionAttempt = payload  ', payload)
+        .switchMap( (payload: any ) => {
             return this.propertiesService.updateProperty( payload,
                 errorActions.ErrorTypes.REPORT_ERROR,
                 propertyActions.PropertiesTypes.UPDATE_PROPERTY_IN_COLLECTION_FAILURE,
@@ -51,22 +44,8 @@ export class PropertiesEffects {
 
 
 
-    @Effect() addPropertyToCollection = this.actions$
-        .ofType(propertyActions.PropertiesTypes.ADD_PROPERTY_TO_COLLECTION_ATTEMPT)
-        .map((action:propertyActions.AddPropertyToCollectionAttempt) => action.payload)
-        .switchMap((payload:any) => this.propertiesService.addProperty( payload,
-            errorActions.ErrorTypes.REPORT_ERROR,
-            propertyActions.PropertiesTypes.ADD_PROPERTY_TO_COLLECTION_FAILURE,
-            propertyActions.PropertiesTypes.ADD_PROPERTY_TO_COLLECTION_SUCCESS));
 
-
-
-
-
-
-
-
- constructor( private store:Store<fromRoot.State>,
+ constructor( private store: Store<fromRoot.State>,
               private propertiesService: PropertiesService,
               private actions$: Actions
              ) {  }

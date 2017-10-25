@@ -35,11 +35,7 @@ import { NotfoundPageModule } from '../view-layer/modules-by-route/notfound/notf
 import { AppStageComponent } from './app.stage.component';
 import { AppStageRoutingModule } from './app.stage.routing.module';
 
-/*
-   Just for development and demonstration purposes I have including the following in this branch
-   so as to create a static git hub page for blog/demo presentations... In general, I believe this is not
-   a good practice
- */
+
 
 import { BaseRequestOptions, Http } from '@angular/http';
 

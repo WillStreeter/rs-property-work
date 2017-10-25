@@ -1,14 +1,7 @@
 /**
  * Created by williestreeter on 10/22/17.
  */
-/**
- * Created by willstreeter on 9/8/17.
- */
 import {Injectable} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
-import * as fromRoot from '../../data-layer/ngrx-data/reducers/index';
 import { PropertyModel } from '../../business-layer/models/index';
 
 @Injectable()
@@ -79,27 +72,77 @@ export class DataStructureServices {
 
      createPropertiesModels(propertyData: any ): PropertyModel[] {
         const propertyModels: PropertyModel[] = [];
-         const zeros = 0;
         propertyData.forEach((element) => {
-            let propModel = this.buildPropertyModel(element)
+            const propModel = this.buildPropertyModelFromRaw(element)
             propertyModels.push(propModel);
         });
 
         return propertyModels;
     }
 
-
-    buildPropertyModel(element){
+    buildPropertyModelElement( element ) {
         const zeros = 0;
-        const monthlyRent = element.financial  && element.financial.monthlyRent ? element.financial.monthlyRent.toFixed(2) : zeros.toFixed(2);
-        const listPrice =  element.financial && element.financial.listPrice ? element.financial.listPrice.toFixed(2) : zeros.toFixed(2);
-        const address1 =   element.address.address1 ? element.address.address1 : '';
-        const city =   element.address.city ?  element.address.city : '';
-        const county =   element.address.county ?   element.address.county : '';
-        const country =   element.address.country ?  element.address.country : '';
-        const district =   element.address.district ? element.address.district : '';
-        const state =   element.address.state ?  element.address.state : '';
-        const yearBuilt = element.physical ? element.physical.yearBuilt : 0;
+
+        const monthlyRent = element.monthlyRent ?
+                              element.monthlyRent.toFixed(2) : zeros.toFixed(2);
+        const listPrice   = element.listPrice ?
+                              element.listPrice.toFixed(2) : zeros.toFixed(2);
+
+        const address1    = element.address1;
+        const city        = element.city;
+        const county      = element.county;
+        const country     = element.country;
+        const district    = element.district;
+        const state       = element.state;
+        const yearBuilt   = element.yearBuilt;
+
+        const  propModel: PropertyModel = <PropertyModel>{};
+        propModel.id = element.id;
+        // address.address1
+        propModel.address1 = address1;
+        // address.city
+        propModel.city = city;
+        // address.county
+        propModel.county = county;
+        // address.country
+        propModel.country = country;
+        // address.district
+        propModel.district = district;
+        // address.state
+        propModel.state = state;
+        // address.zip
+        propModel.zip = element.zip;
+        // address.zipPlus4
+        propModel.zipPlus4 = element.zipPlus4;
+        // combined
+        propModel.addressCombined =  address1 + ' ' + city + ' ' +
+            county + ' ' + state + ' ' +
+            element.zip + ' ' + country;
+        // physical.yearBuilt
+        propModel.yearBuilt = yearBuilt;
+        // financial.listPrice
+        propModel.listPrice =  listPrice;
+        // financial.monthlyRent
+        propModel.monthlyRent =  monthlyRent;
+        // combined
+        propModel.grossYield =    this.computeGrossYield(listPrice, monthlyRent )
+
+        return propModel;
+    }
+
+    buildPropertyModelFromRaw( element ) {
+        const zeros = 0;
+        const monthlyRent = element.financial  && element.financial.monthlyRent ?
+                              element.financial.monthlyRent.toFixed(2) : zeros.toFixed(2);
+        const listPrice   = element.financial && element.financial.listPrice ?
+                              element.financial.listPrice.toFixed(2) : zeros.toFixed(2);
+        const address1    = element.address.address1 ? element.address.address1 : '';
+        const city        = element.address.city ?  element.address.city : '';
+        const county      = element.address.county ?   element.address.county : '';
+        const country     = element.address.country ?  element.address.country : '';
+        const district    = element.address.district ? element.address.district : '';
+        const state       = element.address.state ?  element.address.state : '';
+        const yearBuilt   = element.physical ? element.physical.yearBuilt : 0;
         const  propModel: PropertyModel = <PropertyModel>{};
         propModel.id = element.id;
         // address.address1
@@ -129,7 +172,7 @@ export class DataStructureServices {
         // financial.monthlyRent
         propModel.monthlyRent =  monthlyRent;
         // combined
-        propModel.grossYield =  (monthlyRent * 12 / listPrice);
+        propModel.grossYield =  this.computeGrossYield(listPrice, monthlyRent )
 
         return propModel;
     }
@@ -137,4 +180,18 @@ export class DataStructureServices {
     getStatesHash(): Object {
      return this.stateHash;
     }
+
+    computeGrossYield(listPrice, monthlyRent) {
+        if ( (listPrice / 1) === 0 || (monthlyRent / 1)  === 0 ){
+          return 0;
+        } else {
+          return  parseFloat((monthlyRent * 12 / listPrice).toFixed(4));
+        }
+    }
+
+     buildNumberWithFixed(value, index){
+        const numStr = parseFloat(value).toFixed(index)
+        return parseFloat(numStr);
+    }
 }
+

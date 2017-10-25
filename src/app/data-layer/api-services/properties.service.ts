@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpWrapperService } from './http.wrapper.service';
 import { HttpParams } from './interfaces/httpParams.model';
-import {Property} from "./mock/property.clone";
+import { Property } from './mock/property.clone';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -23,11 +23,8 @@ export class PropertiesService {
       successActionType: SuccessType,
       uri: `${this.propertiesUrl}`
     };
-    // return this.httpWrapperService.get(getParams).map( (response) => {
-    //     console.log('PropertiesService =response = ', response)
-    //     return (this.checkForClientDev(response));
-    // });
-      return this.httpWrapperService.get(getParams).map( (response)=>(this.checkForClientDev(response)));
+
+    return this.httpWrapperService.get(getParams).map( (response) => (this.checkForClientDev(response)));
   }
 
   getProperty(payload: {
@@ -44,7 +41,7 @@ export class PropertiesService {
       successActionType: SuccessType,
       uri: `${this.propertiesUrl}/${payload.id}`
     };
-    return this.httpWrapperService.post(getParams).map( (response)=>(this.checkForClientDev(response)));
+    return this.httpWrapperService.post(getParams).map( (response)=> (this.checkForClientDev(response)));
   }
 
   addProperty( payload: {
@@ -66,7 +63,7 @@ export class PropertiesService {
       successActionType: SuccessType,
       uri:  `${this.propertiesUrl}/add`
     };
-    return this.httpWrapperService.post(postParams).map( (response)=>this.checkForClientDev(response));
+    return this.httpWrapperService.post(postParams).map( (response) => this.checkForClientDev(response));
   }
 
 
@@ -84,10 +81,10 @@ export class PropertiesService {
       successActionType: SuccessType,
       uri: `${this.propertiesUrl}/update`
     };
-    return this.httpWrapperService.put(postParams).map( (response)=>this.checkForClientDev(response))
+    return this.httpWrapperService.put(postParams).map( (response)=> this.checkForClientDev(response))
   }
 
-  deleteGarment(payload: {
+  deleteProperty(payload: {
                              property:Property
                          },
                ErrorActionType:string,
@@ -106,11 +103,11 @@ export class PropertiesService {
 
 
   private checkForClientDev(response:any){
-   // because I am using api in memory for a gh page I am commenting this out
-      console.log('checkForClientDev response = ',response)
-     if(environment.production ) {
-        return response;
-        //return Object.assign(response,{payload: <Property[]> response.payload['data'] } );
+   // because I am using api in memory  am commenting this out
+      //console.log('checkForClientDev response = ',response)
+     if ( environment.production ) {
+        //return response;
+        return Object.assign(response,{payload: <Property[]> response.payload['data'] } );
      }else{
         return Object.assign(response,{payload: <Property[]> response.payload['data'] } );
      }

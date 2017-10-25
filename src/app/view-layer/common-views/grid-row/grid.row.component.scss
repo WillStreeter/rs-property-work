@@ -6,7 +6,7 @@
     border-width: 1px;
     border-bottom-color: $steel-white;
     min-height:55px;
-
+    color:darken($input-color, 40%);
 }
 
 md-checkbox {
@@ -15,16 +15,21 @@ md-checkbox {
 }
 
 .input-on{
-    border-color:$input-color;
+    border-color:darken($input-color, 80%);
 }
 
 .state-label{
-   color:$noc-color;
    line-height:40px;
 }
 
 label.state-label{
   vertical-align:middle;
+  margin-right:10px;
+}
+
+button.type-btn-trigger{
+   color:$noc-color;
+   background-color:$input-color;
 }
 
 .property-address,
@@ -51,14 +56,15 @@ label.state-label{
     }
 }
 
-.property-input-city,
+
+.property-address-revealed{
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+
+
 .property-input-address{
-   font-size:15px;
-   flex-direction: row;
-   width: 75%;
-   align-items: center;
-   padding-left:0.35em;
-   padding-right:0.35em;
+   width: 75% !important;
    color: $noc-color;
 }
 
@@ -73,49 +79,42 @@ label.state-label{
    color: $noc-color;
 }
 
-
 .property-placeholder-address-label{
-   color :$input-color;
+   color :$noc-color;
 }
 
-
-
-.active-row{
-
-}
-
-.un-revealed .property-placeholder-label{
-   visibility: hidden;
-   color :$input-color;
-}
 
 .un-revealed .property-input-container{
-   color :$input-color;
+    color:darken($input-color, 40%);
 }
 
-.un-revealed md-form-field.property-input-container{
-      .mat-input-wrapper .mat-form-field-flex{
-       background-color:pink !important;
-     }
-}
 
-.do-reveal {
-     align-items: center;
-     padding-top:10%;
-     padding-bottom:10%;
+.property-year-built.do-reveal {
+  margin-left:10%;
 }
 
 .do-reveal.property-placeholder-label{
      color :lighten($noc-color, 6%);
      visibility: visible;
-  }
+}
 
+.un-revealed label.gross-label{
+     align-items: center;
+     padding-top:15%;
+}
 
+.do-reveal {
+     align-items: center;
+     padding-top:20%;
+}
+
+.do-reveal label.gross-label{
+     padding-bottom:5%;
+}
 
 .save-button{
-  background-color:transparent;
-  border:none;
-  padding-top:15px;
-  color:$noc-color;
-  width:20px;
+  margin-top:auto;
+  margin-bottom:20px;
+  background-color:lighten($noc-color, 6%);
+  color:$baby-powder;
 }

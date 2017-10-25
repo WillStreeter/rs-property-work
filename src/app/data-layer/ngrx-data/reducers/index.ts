@@ -26,7 +26,6 @@ import { storeFreeze } from 'ngrx-store-freeze';
  * notation packages up all of the exports into a single object.
  */
 import * as fromErrors from './error/error.reducer';
-import * as fromPortal from './portal/portal.reducer';
 import * as fromProperties from './properties/properties.reducer';
 
 
@@ -36,7 +35,6 @@ import * as fromProperties from './properties/properties.reducer';
  */
 export interface State {
   errors: fromErrors.State;
-  portals: fromPortal.State;
   properties: fromProperties.State;
 }
 
@@ -52,7 +50,6 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   errors: fromErrors.reducer,
-  portals: fromPortal.reducer,
   properties: fromProperties.reducer,
 };
 
@@ -102,19 +99,5 @@ export const getCurrentCollectionProperties = createSelector(getPropertiesState,
 
 
 
-
-/**
- * portal Reducers
- */
-export const getPortalState = createFeatureSelector<fromPortal.State>('portals');
-
-
-export const getPropertyAddLock =  createSelector(getPortalState, fromPortal.getPropertyAddLock);
-
-export const getRevealAddPropertyRow =  createSelector(getPortalState, fromPortal.getRevealAddPropertyRow);
-
-export const getViewablePerPage = createSelector(getPortalState, fromPortal.getViewablePerPage);
-
-export const getCurrentPage = createSelector(getPortalState, fromPortal.getCurrentPage);
 
 
