@@ -1,5 +1,6 @@
 # rs-property-work
-#### A simple Grid showing housing stock
+#### A simple Grid showing housing stock 
+   [DEMO](https://willstreeter.github.io/rs-property-work/)
 
 
 ## Architecture:
